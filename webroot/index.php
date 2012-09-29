@@ -1,17 +1,19 @@
 <?php
 
-if(dirname($_SERVER["SCRIPT_NAME"]) != "/") {define("WEBROOT", "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER["SCRIPT_NAME"])."/");}
-else {define("WEBROOT", "http://".$_SERVER['HTTP_HOST']."/");}
 $super_globals = array(
+	'WEBROOT' => (dirname($_SERVER["SCRIPT_NAME"]) != "/") ? "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER["SCRIPT_NAME"])."/" : "http://".$_SERVER['HTTP_HOST']."/",
+	'JS_DIR' => 'inc/js/',
 	'ROOT_DIR' => dirname(__FILE__) . DIRECTORY_SEPARATOR,
+	'CONFIG_DIR' => 'app' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR,
 	'MODEL_DIR' => 'app' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR,
 	'VIEW_DIR' => 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR,
 	'CONTROLLER_DIR' => 'app' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR,
 	'UTIL_DIR' => 'app' . DIRECTORY_SEPARATOR . 'util' . DIRECTORY_SEPARATOR,
 	'HELPER_DIR' => 'app' . DIRECTORY_SEPARATOR . 'util' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR,
-	'JS_DIR' => 'inc' . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR
 );
 foreach($super_globals as $k => $v) {define($k, $v);}
+
+includeFile(ROOT_DIR . CONFIG_DIR . "config.php");
 
 $class_paths = array(
 	CONTROLLER_DIR . "IndexController.php",

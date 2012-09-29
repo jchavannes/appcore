@@ -19,8 +19,8 @@ class ViewController {
 	}
 
 	public function loadJS($path) {
-		$url = JS_DIR . $path;
-		echo "<script type='text/javascript' src='$url'></script>";
+		$url = WEBROOT . JS_DIR . $path;
+		echo "<script type='text/javascript' language='javascript' src='$url'></script>";
 	}
 	
 }

@@ -6,7 +6,7 @@ class MysqlTbl {
 	private $insert_id = false;
 
 	public function __construct() {
-		$this->DB =  new mysqli('localhost', 'root', 'jason', 'tasklaunch');
+		$this->DB =  new mysqli(MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_DATABASE);
 	}
 
 	public function getRow($query, $opts) {
