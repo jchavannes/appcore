@@ -1,1 +1,1 @@
-appcore is a starting point for other project
+appcore is a starting point for other projects
