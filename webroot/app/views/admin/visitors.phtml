@@ -1,0 +1,19 @@
+<h3>Visitors</h3>
+
+<sheet>
+	<row class='title'>
+		<cell>Request URL</cell>
+		<cell>Requests</cell>
+		<cell>Posts</cell>
+		<cell>Sessions</cell>
+	</row>
+
+	<?php foreach($requests as $request) { ?>
+	<row>
+		<cell><?php echo $request[HttpRequestTbl::GET]; ?></cell>
+		<cell><?php echo $request['count']; ?></cell>
+		<cell><?php echo $request['posts']; ?></cell>
+		<cell><?php echo $request['sessions']; ?></cell>
+	</row>
+	<?php } ?>	
+</sheet>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/tr/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"> 
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<base href='<?php echo WEBROOT; ?>' />
+	<title>Site</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	
+	<link rel='stylesheet' href='inc/css/style.css'>
+	
+	<script type='text/javascript' language='javascript' src='inc/3p/jquery.min.js'></script>
+	<script type='text/javascript' language='javascript' src='inc/3p/jquery-ui.min.js'></script>
+	<script type='text/javascript' language='javascript' src='inc/3p/jquery.history.js'></script>
+	<script type='text/javascript' language='javascript' src='inc/js/core.js'></script>
+</head>
+<body>
+	<div class='container'>
+
+		<div class='user_status'>
+		<?php if(Session::isLoggedIn()) { ?>
+
+			<p>You are logged in <a href='user'><?php echo Session::username(); ?></a>.</p>
+			<p><a href='logout'>Logout</a></p>
+
+		<?php } else { ?>
+
+			<p><a href='login'>Login</a></p>
+			<p><a href='signup'>New user</a></p>
+			
+		<?php } ?>
+		</div>
+
+		<div class='page'>
+
+			<h1>Site</h1>
+			<div class='sidebar'>
+				<?php $page = IndexController::getPageArg(); ?>
+				<ul>
+					<li class='home<?php if($page[0] == 'home') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>'><span></span>Home</a></li>
+					<?php if(Session::isLoggedIn()) { ?>
+						<li class='star<?php if($page[0] == 'sample') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>sample'><span></span>Sample</a></li>
+					<?php } ?>
+
+					<?php if(Session::checkPermission(Permissions::SUPER_ADMIN)) { ?>
+					<li class='admin<?php if($page[0] == 'admin' && !isset($page[1])) {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>admin'><span></span>Admin</a>
+						<?php if($page[0] == 'admin') { ?>
+						<ul>
+							<li<?php if($page[0] == 'admin' && isset($page[1]) && $page[1] == 'users') {echo " class='sel'";} ?>><a href='admin/users'>- Users</a></li>
+							<li<?php if($page[0] == 'admin' && isset($page[1]) && $page[1] == 'visitors') {echo " class='sel'";} ?>><a href='admin/visitors'>- Visitors</a></li>
+							<li<?php if($page[0] == 'admin' && isset($page[1]) && $page[1] == 'comments') {echo " class='sel'";} ?>><a href='admin/comments'>- Comments</a></li>
+						</ul>
+						<?php } ?>
+					</li>
+					<?php } ?>
+				</ul>
+			</div><div class='body'>

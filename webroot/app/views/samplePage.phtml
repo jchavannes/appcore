@@ -1,0 +1,22 @@
+<p>Sample Page!</p>
+
+<?php foreach($comments['data'] as $comment) { ?>
+<div class='comment'>
+	<h3><?php echo $comment[CommentTbl::TITLE]; ?></h3>
+	<h4>
+		By <a href='user/view/<?php echo $comment[UserTbl::USERNAME]; ?>'><?php echo $comment[UserTbl::USERNAME]; ?></a>
+		 on <?php echo date("D, M j, Y, h:ia", $comment[CommentTbl::DATE]); ?>
+	</h4>
+	<div class='text'><?php echo $comment[CommentTbl::MESSAGE]; ?></div>
+</div>
+<?php } ?>
+
+<form action='comment/add' method='post' id='<?php echo CommentController::FORM_ID; ?>'>
+	<h3>Add comment</h3>
+	<?php $comments['helper']->getVerifierField(); ?>
+	<label for='<?php echo CommentController::COMMENT_TITLE; ?>'>Title: </label>
+	<input type='text' name='<?php echo CommentController::COMMENT_TITLE; ?>' /><br/>
+	<label for='<?php echo CommentController::COMMENT_MESSAGE; ?>'>Content: </label>
+	<textarea name='<?php echo CommentController::COMMENT_MESSAGE; ?>'></textarea><br/>
+	<label></label><input type='submit' value='Submit' />
+</form>
