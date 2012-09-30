@@ -2,7 +2,10 @@
 
 $super_globals = array(
 	'WEBROOT' => (dirname($_SERVER["SCRIPT_NAME"]) != "/") ? "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER["SCRIPT_NAME"])."/" : "http://".$_SERVER['HTTP_HOST']."/",
+	'CSS_DIR' => 'inc/css/',
+	'IMG_DIR' => 'inc/img/',
 	'JS_DIR' => 'inc/js/',
+	'LIB_DIR' => 'inc/lib/',
 	'ROOT_DIR' => dirname(__FILE__) . DIRECTORY_SEPARATOR,
 	'CONFIG_DIR' => 'app' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR,
 	'MODEL_DIR' => 'app' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR,
@@ -10,7 +13,8 @@ $super_globals = array(
 	'CONTROLLER_DIR' => 'app' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR,
 	'UTIL_DIR' => 'app' . DIRECTORY_SEPARATOR . 'util' . DIRECTORY_SEPARATOR,
 	'HELPER_DIR' => 'app' . DIRECTORY_SEPARATOR . 'util' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR,
-);
+	'LB' => '
+');
 foreach($super_globals as $k => $v) {define($k, $v);}
 
 includeFile(ROOT_DIR . CONFIG_DIR . "config.php");

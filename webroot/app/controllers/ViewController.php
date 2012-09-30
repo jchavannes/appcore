@@ -18,9 +18,21 @@ class ViewController {
 		die();
 	}
 
-	public function loadJS($path) {
+	public function loadCss($path) {
+		$url = WEBROOT . CSS_DIR . $path;
+		echo "<link rel='stylesheet' href='$url'>".LB;
+	}
+	public function loadImg($path) {
+		$url = WEBROOT . LIB_DIR . $path;
+		echo "<script type='text/javascript' language='javascript' src='$url'></script>".LB;
+	}
+	public function loadJs($path) {
 		$url = WEBROOT . JS_DIR . $path;
-		echo "<script type='text/javascript' language='javascript' src='$url'></script>";
+		echo "<script type='text/javascript' language='javascript' src='$url'></script>".LB;
+	}
+	public function loadLib($path) {
+		$url = WEBROOT . LIB_DIR . $path;
+		echo "<script type='text/javascript' language='javascript' src='$url'></script>".LB;
 	}
 	
 }

@@ -5,6 +5,10 @@ class SampleController extends ViewController {
 	const COMMENT_DEFAULT = 'sample_page';
 
 	public function defaultAction() {
+		if(!Session::isLoggedIn()) {
+			self::badUrl();
+			return;
+		}
 		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
 		$comments = array();
 		$comments['table'] = new CommentTbl();

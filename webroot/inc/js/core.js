@@ -37,7 +37,7 @@ var CommentForm = new (function() {
 var PopupMessage = new(function() {
 	this.init = function() {
 		var html = "<div class='popup'><div class='message'><h4>Title</h4>message</div></div>";
-		//$('body').append(html);
+		$('body').append(html);
 	}
 	$('document').ready(this.init);
 });
