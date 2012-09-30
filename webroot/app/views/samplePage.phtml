@@ -14,9 +14,12 @@
 <form action='comment/add' method='post' id='<?php echo CommentController::FORM_ID; ?>'>
 	<h3>Add comment</h3>
 	<?php $comments['helper']->getVerifierField(); ?>
+	<input type='hidden' name='<?php echo CommentController::COMMENT_ITEM; ?>' value='<?php echo SampleController::COMMENT_DEFAULT; ?>' />
 	<label for='<?php echo CommentController::COMMENT_TITLE; ?>'>Title: </label>
 	<input type='text' name='<?php echo CommentController::COMMENT_TITLE; ?>' /><br/>
-	<label for='<?php echo CommentController::COMMENT_MESSAGE; ?>'>Content: </label>
+	<label for='<?php echo CommentController::COMMENT_MESSAGE; ?>'>Message: </label>
 	<textarea name='<?php echo CommentController::COMMENT_MESSAGE; ?>'></textarea><br/>
 	<label></label><input type='submit' value='Submit' />
 </form>
+
+<?php FormHelper::loadForm(CommentController::FORM_ID); ?>

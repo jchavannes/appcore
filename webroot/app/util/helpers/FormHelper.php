@@ -35,4 +35,14 @@ class FormHelper {
 		return $this->verifier['old'];
 	}
 
+	public function loadForm($id) {
+		if(!isset($id)) {return false;}
+		echo 
+		"<script type='text/javascript'>".
+			"$(document).ready(function() {".
+				"CommentForm.load('".$id."');".
+			"});".
+		"</script>".LB;
+	}
+
 }

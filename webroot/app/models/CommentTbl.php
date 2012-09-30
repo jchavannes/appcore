@@ -37,9 +37,15 @@ class CommentTbl extends MysqlTbl {
 
 	}
 
-	public function addComment($opts) {
+	public function addComment($query_opts) {
 
-		if(!$opts) {return false;}
+		$opts = array();
+
+		foreach($query_opts as $opt) {
+			$opts[] = $opt;
+		}
+
+		if(count($opts) != 6) {return false;}
 
 		$query = 
 			"INSERT INTO " . 

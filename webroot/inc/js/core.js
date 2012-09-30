@@ -31,7 +31,31 @@ var Sheet = new (function() {
 });
 var CommentForm = new (function() {
 	this.load = function(id) {
-		var form = $('form#'+id);
+		$('form#'+id).ajaxForm({
+			beforeSubmit: function() {
+				PopupMessage.show("Adding comment..");
+			},
+			success : function(data) {
+				data = $.parseJSON(data);
+				if(data.status == 'success') {
+					PopupMessage.show({
+						message: "Comment added.",
+						buttons: [{
+							value: "Ok",
+							onclick: "document.location.reload(true);"
+						}]
+					});
+				} else {
+					PopupMessage.show({
+						message: data.message,
+						buttons: [{
+							value: "Ok",
+							onclick: (true || data.error_id === 1) ? "PopupMessage.close();" : "document.location.reload(true);"
+						}]
+					});
+				}
+			}
+		})
 	}
 });
 var PopupMessage = new(function() {
@@ -45,11 +69,20 @@ var PopupMessage = new(function() {
 		var html = "<div class='popup'><div class='box'><h3></h3><div class='message'></div></div></div>";
 		$('body').append(html);
 	}
-	this.show = function(message, title) {
-		if(typeof message != 'string') {return false;}
-		if(typeof title != 'string') {title = 'Message'}
-		$('.popup h3').html(title);
-		$('.popup .message').html(message);
+	this.show = function(opts) {
+		if(typeof opts != 'object') {return false;}
+		if(typeof opts.message != 'string') {return false;}
+		if(typeof opts.title != 'string') {opts.title = 'Message'}
+		if(typeof opts.buttons == 'object') {
+			opts.message += "<div class='options'>";
+			for(var i = 0; typeof opts.buttons[i] == 'object'; i++) {
+				opts.message += "<input type='button' onclick='"+opts.buttons[i].onclick+"' value='"+opts.buttons[i].value+"' />";
+			}
+			opts.message += "</div>";	
+		}
+		$('.popup h3').html(opts.title);
+		$('.popup .message').html(opts.message);
+		$('.popup .options input').eq(0).focus();
 		$('.popup').addClass('active');
 		PopupMessage.resize();
 	}

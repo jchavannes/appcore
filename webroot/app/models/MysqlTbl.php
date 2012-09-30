@@ -91,9 +91,9 @@ class MysqlTbl {
 
 	protected function getQueryStatement($query, $opts = false) {
 		$stmt = $this->DB->prepare($query);
-		if($opts != false) {
+		if($opts != false && isset($opts[0])) {
 			$eval_code = "'";
-			for($i = 0; $i < count($opts); $i++) {
+			for($i = 0; isset($opts[$i]); $i++) {
 				$opts[$i] = $this->DB->real_escape_string($opts[$i]);
 				$eval_code = 's' . $eval_code . ', $opts[' . $i . ']';
 			}

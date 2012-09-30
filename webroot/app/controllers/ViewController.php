@@ -22,10 +22,6 @@ class ViewController {
 		$url = WEBROOT . CSS_DIR . $path;
 		echo "<link rel='stylesheet' href='$url'>".LB;
 	}
-	public function loadImg($path) {
-		$url = WEBROOT . LIB_DIR . $path;
-		echo "<script type='text/javascript' language='javascript' src='$url'></script>".LB;
-	}
 	public function loadJs($path) {
 		$url = WEBROOT . JS_DIR . $path;
 		echo "<script type='text/javascript' language='javascript' src='$url'></script>".LB;
@@ -33,6 +29,16 @@ class ViewController {
 	public function loadLib($path) {
 		$url = WEBROOT . LIB_DIR . $path;
 		echo "<script type='text/javascript' language='javascript' src='$url'></script>".LB;
+	}
+	public function loadImg($path, $params) {
+		$attr_text = "";
+		if(isset($params)) {
+			foreach($params as $attr => $val) {
+				$attr_text .= " $attr=\"".$val."\"";
+			}
+		}
+		$url = WEBROOT . IMG_DIR . $path;
+		echo "<img".$attr_text." src='$url' />".LB;
 	}
 	
 }

@@ -6,7 +6,7 @@ class SampleController extends ViewController {
 
 	public function defaultAction() {
 		if(!Session::isLoggedIn()) {
-			self::badUrl();
+			AdminController::noAccessAction();
 			return;
 		}
 		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
