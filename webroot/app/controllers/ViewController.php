@@ -9,7 +9,10 @@ class ViewController {
 	}
 
 	public function badUrl() {
-		echo "Bad url!";
+		header('HTTP/1.0 404 Not Found');
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "404.phtml");
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
 	}
 
 	protected function redirect($url = "") {

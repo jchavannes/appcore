@@ -33,18 +33,19 @@ var CommentForm = new (function() {
 	this.load = function(id) {
 		$('form#'+id).ajaxForm({
 			beforeSubmit: function() {
-				PopupMessage.show("Adding comment..");
+				PopupMessage.show({message: "Adding comment.."});
 			},
 			success : function(data) {
 				data = $.parseJSON(data);
 				if(data.status == 'success') {
-					PopupMessage.show({
+					document.location.reload(true);
+					/*PopupMessage.show({
 						message: "Comment added.",
 						buttons: [{
 							value: "Ok",
 							onclick: "document.location.reload(true);"
 						}]
-					});
+					});*/
 				} else {
 					PopupMessage.show({
 						message: data.message,
@@ -56,6 +57,35 @@ var CommentForm = new (function() {
 				}
 			}
 		})
+	}
+	this.deleteComment = function(id) {
+		PopupMessage.show({message: "Deleting comment.."});
+		$.ajax('comment/delete/'+id, {
+			success: function(data) {
+				data = $.parseJSON(data);
+				if(data.status == 'success') {
+					document.location.reload(true);
+					/*PopupMessage.show({
+						message: "Comment deleted.",
+						buttons: [{
+							value: "Ok",
+							onclick: "document.location.reload(true);"
+						}]
+					});*/
+				} else {
+					PopupMessage.show({
+						message: "Unable to delete comment.",
+						buttons: [{
+							value: "Ok",
+							onclick: "PopupMessage.close();"
+						}]
+					});
+				}
+			}
+		});
+	}
+	this.realDeleteComment = function(id) {
+		
 	}
 });
 var PopupMessage = new(function() {

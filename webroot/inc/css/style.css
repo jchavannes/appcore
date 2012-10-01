@@ -9,6 +9,38 @@ body {
 p, h1, h2, h3, h4, h5, h6 {
 	margin: 12px 0px;
 }
+label {
+	display: inline-block;
+	*display:inline;zoom:1;
+	vertical-align: top;
+	width: 110px;
+	padding: 5px;
+}
+input, textarea {
+	padding: 5px 10px;
+	width: 220px;
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	font-family: Helvetica, Arial, sans-serif;
+}
+textarea {
+	resize: vertical;
+	height: 50px;
+	max-height: 150px;
+}
+input[type=submit], input[type=button] {
+	margin-top: 20px;
+	width: 150px;
+}
+input[type=submit]:hover, input[type=button]:hover {
+	cursor: pointer;
+}
+input[type=button].action {
+	padding: 2px 5px;
+	font-size: 11px;
+	margin-top: 0px;
+	width: auto;
+}
 
 sheet {
 	display: inline-block;
@@ -132,26 +164,12 @@ sheet row.title cell {
 }
 .page h2 {
 }
-.page input {
-	padding: 5px 10px;
-}
 .page .login, .page .newuser {
 	display: inline-block;
 	*display:inline;zoom:1;
 	vertical-align: top;
 	width: 300px;
 	text-align: center;
-}
-.page label {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	width: 130px;
-	padding: 5px;
-}
-.page input[type=submit] {
-	margin-top: 20px;
-	width: 150px;
 }
 .dashboard {
 	width: 900px;
@@ -171,6 +189,8 @@ sheet row.title cell {
 	border: 1px solid #bbb;
 	border-radius: 7px;
 	padding: 0px 12px;
+	margin: 12px 0px;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.2);
 }
 .comment h3 {
 	margin-bottom: 0px;
@@ -181,6 +201,9 @@ sheet row.title cell {
 	font-weight: 500;
 }
 .comment .text {
+	margin: 12px 0px;
+}
+.comment .manage {
 	margin: 12px 0px;
 }
 
@@ -203,9 +226,19 @@ sheet row.title cell {
 	position: absolute;
 	top: 50%;
 	left: 50%;
+	text-align: center;
+	padding-bottom: 12px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px rgba(0,0,0,.7);
 }
 .popup .box h3 {
 	margin-top: 0px;
+	background: #eee;
+	padding: 5px;
+	border-radius: 5px 5px 0px 0px;
+}
+.popup .box .message {
+	padding: 0px 15px;
 }
 .oversizePopup .popup {
 	position: absolute;

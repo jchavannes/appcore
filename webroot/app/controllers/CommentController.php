@@ -9,7 +9,7 @@ class CommentController extends ViewController {
 	const FORM_ID = 'comment_form';
 	
 	public function defaultAction() {
-
+		self::badUrl();
 	}
 
 	public function addAction() {
@@ -39,7 +39,28 @@ class CommentController extends ViewController {
 				return;
 			}
 		}
-		echo '{"status": "error", "error_id":2, "message": "We were unable to validate your submissions, please refresh your page."}';
+		echo '{"status": "error", "error_id":2, "message": "We were unable to validate your submission, please refresh the page."}';
+		
+	}
+
+	public function deleteAction() {
+
+		$status = "error";
+
+		if($deleteId = IndexController::getPageArg(2)) {
+			$CommentTbl = new CommentTbl();
+			if(Session::checkPermission(Permissions::SUPER_ADMIN)) {
+				if($CommentTbl->deleteComment($deleteId, true)) {
+					$status = "success";
+				}
+			} else {
+				if($CommentTbl->deleteComment($deleteId)) {
+					$status = "success";
+				}
+			}
+		}
+		
+		echo '{"status": "'.$status.'"}';
 		
 	}
 

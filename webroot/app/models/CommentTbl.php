@@ -17,6 +17,7 @@ class CommentTbl extends MysqlTbl {
 		$query = 
 			"SELECT " .
 				self::NAME . "." . self::ID . ", " .
+				self::NAME . "." . self::USER_ID . ", " .
 				self::NAME . "." . self::PARENT_ID . ", " .
 				self::NAME . "." . self::TITLE . ", " .
 				self::NAME . "." . self::MESSAGE . ", " .
@@ -58,6 +59,31 @@ class CommentTbl extends MysqlTbl {
 					self::DATE . 
 				")" .
 			" VALUES (?, ?, ?, ?, ?, ?)";
+
+		return $this->query($query, $opts);
+
+	}
+
+	public function deleteComment($id, $admin = false) {
+
+		if($admin === true) {
+			$query =
+				"DELETE FROM " .
+					self::NAME . 
+				" WHERE " .
+					self::ID . " = ?";
+			$opts = array($id);
+
+		} else {
+			$query =
+				"DELETE FROM " .
+					self::NAME . 
+				" WHERE " .
+					self::ID . " = ?" .
+				" AND " .
+					self::USER_ID . " = ?";
+			$opts = array($id, $_SESSION[Session::USER_ID]);
+		}
 
 		return $this->query($query, $opts);
 
