@@ -15,11 +15,11 @@
 		 on <?php echo date("D, M j, Y, h:ia", $comment[CommentTbl::DATE]); ?>
 	</h4>
 	<div class='text'><?php echo $comment[CommentTbl::MESSAGE]; ?></div>
-	<?php if(Session::checkPermission(Permissions::SUPER_ADMIN) || (isset($_SESSION[Session::USER_ID]) && $_SESSION[Session::USER_ID] == $comment[CommentTbl::USER_ID])) { ?>
 	<div class='manage'>
-		<input type='button' class='action' value='Delete' onclick='CommentForm.deleteComment(<?php echo $comment[CommentTbl::ID]; ?>);' />
+		<?php if(Session::checkPermission(Permissions::SUPER_ADMIN) || (isset($_SESSION[Session::USER_ID]) && $_SESSION[Session::USER_ID] == $comment[CommentTbl::USER_ID])) { ?>
+		<input type='button' class='action' value='Delete' onclick='Comments.deleteComment(<?php echo $comment[CommentTbl::ID]; ?>);' />
+		<?php } ?>
 	</div>
-	<?php } ?>
 </div>
 <?php } ?>
 
@@ -34,4 +34,8 @@
 	<label></label><input type='submit' value='Submit' />
 </form>
 
-<?php FormHelper::loadForm(CommentController::FORM_ID); ?>
+<script type='text/javascript'>
+	$(document).ready(function() {
+		Comments.Form('<?php echo CommentController::FORM_ID; ?>');
+	});
+</script>

@@ -42,6 +42,11 @@ class CommentTbl extends MysqlTbl {
 
 		$opts = array();
 
+		$query_opts[CommentTbl::MESSAGE] = strip_tags($query_opts[CommentTbl::MESSAGE], "<b><i>");
+		$query_opts[CommentTbl::MESSAGE] = preg_replace('/\n|\r\n/', "<br/>", $query_opts[CommentTbl::MESSAGE]);
+
+		if(strlen($query_opts[CommentTbl::MESSAGE]) <= 0) {return false;}
+
 		foreach($query_opts as $opt) {
 			$opts[] = $opt;
 		}

@@ -109,7 +109,7 @@ class UserTbl extends MysqlTbl {
 
 		$opts = array($name);
 		$results = $this->getResults($query, $opts);
-		if(isset($results[0])) {return $results[0];}
+		if(isset($results[0]) && $results[0][UserTbl::ID] != "") {return $results[0];}
 		return false;
 	}
 

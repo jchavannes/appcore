@@ -1,13 +1,22 @@
 <h2>Signup!</h2>
+
 <?php if($signup_form['error'] && isset($signup_form['error_message'])) { ?>
 	<p><?php echo $signup_form['error_message']; ?></p>
+
 <?php } elseif($signup_form['error']) { ?>
 	<p>Invalid information.</p>
 <?php } ?>
-<form action='signup' method='post'>
+
+<form action='auth/signup' method='post' id='<?php echo AuthController::SIGNUP_FORM_ID; ?>'>
 	<?php $signup_form['helper']->getVerifierField(); ?>
-	<label>Username</label><input type='text' name='<?php echo HomeController::SIGNUP_USERNAME; ?>' value='<?php echo $signup_form['username']; ?>' /><br/>
-	<label>Password</label><input type='password' name='<?php echo HomeController::SIGNUP_USERNAME; ?>' value='<?php echo $signup_form['password']; ?>' /><br/>
-	<label>Verify Password</label><input type='password' name='<?php echo HomeController::SIGNUP_VERIFY_PASSWORD; ?>' value='<?php echo $signup_form['password']; ?>' /><br/>
+	<label>Username</label><input type='text' name='<?php echo HomeController::SIGNUP_USERNAME; ?>' value='' /><br/>
+	<label>Password</label><input type='password' name='<?php echo HomeController::SIGNUP_PASSWORD; ?>' value='' /><br/>
+	<label>Verify Password</label><input type='password' name='<?php echo HomeController::SIGNUP_VERIFY_PASSWORD; ?>' value='' /><br/>
 	<label></label><input type='submit' value='Sign Up!' />
 </form>
+
+<script type='text/javascript'>
+	$(document).ready(function() {
+		Signup.Form('<?php echo AuthController::SIGNUP_FORM_ID; ?>');
+	});
+</script>

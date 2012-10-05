@@ -2,7 +2,7 @@ html {
 	overflow-y: scroll;
 }
 body {
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	background: #ddd;
 }
@@ -14,19 +14,20 @@ label {
 	*display:inline;zoom:1;
 	vertical-align: top;
 	width: 110px;
-	padding: 5px;
+	margin: 12px 0px;
 }
 input, textarea {
 	padding: 5px 10px;
 	width: 220px;
 	border: 1px solid #bbb;
+	margin: 12px 5px 12px 0px;
 	border-radius: 4px;
-	font-family: Helvetica, Arial, sans-serif;
 }
 textarea {
 	resize: vertical;
 	height: 50px;
 	max-height: 150px;
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 input[type=submit], input[type=button] {
 	margin-top: 20px;
@@ -203,8 +204,8 @@ sheet row.title cell {
 .comment .text {
 	margin: 12px 0px;
 }
-.comment .manage {
-	margin: 12px 0px;
+#comment_form h3 {
+	margin: 20px 0px 3px;
 }
 
 .popup {
@@ -235,10 +236,15 @@ sheet row.title cell {
 	margin-top: 0px;
 	background: #eee;
 	padding: 5px;
+	font-size: 20px;
+	color: #333;
 	border-radius: 5px 5px 0px 0px;
 }
 .popup .box .message {
 	padding: 0px 15px;
+}
+.popup .options input {
+	margin: 12px;
 }
 .oversizePopup .popup {
 	position: absolute;

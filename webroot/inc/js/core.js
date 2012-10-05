@@ -29,23 +29,70 @@ var Sheet = new (function() {
 	}
 	$(document).ready(this.init);
 });
-var CommentForm = new (function() {
-	this.load = function(id) {
+/*
+	params = {
+		formId : "",  // Id of the form
+		submitMessage : "",  // Message displayed while sending
+		sucessAction : {},  // Function called on success
+		failAction : "" // Function called on fail
+	}
+*/
+var Form = function(params) {
+	console.log(typeof params +"\n"+typeof params.formId +"\n"+typeof params.submitMessage +"\n"+typeof params.successAction +"\n"+typeof params.failAction +"\n")
+	if(	typeof params != "object"
+		|| typeof params.formId != "string"
+		|| typeof params.submitMessage != "string"
+		|| typeof params.successAction != "function"
+		|| typeof params.failAction != "string")
+	{ return false; }
+
+	$('form#'+params.formId).ajaxForm({
+		dataType: 'json',
+		beforeSubmit: function() {
+			PopupMessage.show({message: params.submitMessage});
+		},
+		success: function(data) {
+			if(data.status == 'success') {
+				params.sucessAction();
+			} else {
+				if(typeof data.message == 'string') {
+					data = data.message;
+				}
+				PopupMessage.show({
+					message: data,
+					buttons: [{
+						value: "Ok",
+						onclick: params.failAction
+					}]
+				});
+			}
+		}
+	})
+}
+var Signup = new (function() {
+	var form;
+	this.Form = function(id) {
+		var params = {
+			formId: id,
+			submitMessage: "Creating account...",
+			successAction: function() {
+				document.location.href = document.getElementsByTagName("base").href;
+			},
+			failAction: "PopupMessage.close();"
+		};
+		form = new Form(params);
+	}
+});
+var Comments = new (function() {
+	this.Form = function(id) {
 		$('form#'+id).ajaxForm({
+			dataType: 'json',
 			beforeSubmit: function() {
 				PopupMessage.show({message: "Adding comment.."});
 			},
 			success : function(data) {
-				data = $.parseJSON(data);
 				if(data.status == 'success') {
 					document.location.reload(true);
-					/*PopupMessage.show({
-						message: "Comment added.",
-						buttons: [{
-							value: "Ok",
-							onclick: "document.location.reload(true);"
-						}]
-					});*/
 				} else {
 					PopupMessage.show({
 						message: data.message,
@@ -56,22 +103,27 @@ var CommentForm = new (function() {
 					});
 				}
 			}
-		})
+		});
 	}
 	this.deleteComment = function(id) {
+		PopupMessage.show({
+			message: "Are you sure you want to delete this comment?",
+			buttons: [{
+				value: "Yes",
+				onclick: "Comments.realDeleteComment("+id+");"
+			}, {
+				value: "Cancel",
+				onclick: "PopupMessage.close();"
+			}]
+		});
+	}
+	this.realDeleteComment = function(id) {
 		PopupMessage.show({message: "Deleting comment.."});
 		$.ajax('comment/delete/'+id, {
 			success: function(data) {
 				data = $.parseJSON(data);
 				if(data.status == 'success') {
 					document.location.reload(true);
-					/*PopupMessage.show({
-						message: "Comment deleted.",
-						buttons: [{
-							value: "Ok",
-							onclick: "document.location.reload(true);"
-						}]
-					});*/
 				} else {
 					PopupMessage.show({
 						message: "Unable to delete comment.",
@@ -82,10 +134,7 @@ var CommentForm = new (function() {
 					});
 				}
 			}
-		});
-	}
-	this.realDeleteComment = function(id) {
-		
+		});		
 	}
 });
 var PopupMessage = new(function() {
@@ -106,6 +155,7 @@ var PopupMessage = new(function() {
 		if(typeof opts.buttons == 'object') {
 			opts.message += "<div class='options'>";
 			for(var i = 0; typeof opts.buttons[i] == 'object'; i++) {
+				if(typeof opts.buttons[i].onclick != 'string') {opts.buttons[i].onclick = "PopupMessage.close();"}
 				opts.message += "<input type='button' onclick='"+opts.buttons[i].onclick+"' value='"+opts.buttons[i].value+"' />";
 			}
 			opts.message += "</div>";	

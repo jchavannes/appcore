@@ -19,8 +19,6 @@ class HomeController extends ViewController {
 		if(SESSION::isLoggedIn()) {parent::Redirect();}
 
 		$login_form = array(
-			UserTbl::USERNAME => "test",
-			UserTbl::PASSWORD => "test",
 			'helper' => new FormHelper(FormHelper::LOGIN_FORM),
 			'error' => false
 		);

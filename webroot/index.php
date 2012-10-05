@@ -22,6 +22,7 @@ includeFile(ROOT_DIR . CONFIG_DIR . "config.php");
 $class_paths = array(
 	CONTROLLER_DIR . "IndexController.php",
 	CONTROLLER_DIR . "ViewController.php",
+	CONTROLLER_DIR . "AuthController.php",
 	CONTROLLER_DIR . "AdminController.php",
 	CONTROLLER_DIR . "HomeController.php",
 	CONTROLLER_DIR . "UserController.php",

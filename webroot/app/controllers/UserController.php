@@ -1,6 +1,14 @@
 <?php
 
 class UserController extends ViewController {
+
+	const USER_USERNAME = 'username';
+	const USER_EMAIL = 'email';
+	const USER_OLDPASSWORD = '';
+	const USER_NEWPASSWORD = '';
+	const USER_VERIFY_NEWPASSWORD = '';
+
+	const FORM_ID = 'user_edit_form';
 	
 	public function viewAction() {
 
@@ -29,6 +37,29 @@ class UserController extends ViewController {
 
 	public function defaultAction() {
 		UserController::viewAction();
+	}
+
+	public function editAction() {
+
+		$UserTbl = new UserTbl();
+		$user_info = false;
+
+		if(IndexController::getPageArg(2) !== false) {
+			if(Session::checkPermission(Permissions::SUPER_ADMIN) || IndexController::getPageArg(2) == $_SESSION[SESSION::USERNAME]) {
+				$user_info = $UserTbl->getUserInfo(IndexController::getPageArg(2));
+			}
+		} else {
+			$user_info = $UserTbl->getUserInfo($_SESSION[SESSION::USERNAME]);
+		}
+		if($user_info === false) {
+			self::badUrl();
+			return;
+		}
+
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "user" . DIRECTORY_SEPARATOR . "edit.phtml");
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+
 	}
 
 }

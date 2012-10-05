@@ -4,7 +4,7 @@
 <?php } ?>
 <form action='login' method='post'>
 	<?php $login_form['helper']->getVerifierField(); ?>
-	<label>Username</label><input type='text' name='<?php echo HomeController::LOGIN_USERNAME; ?>' value='<?php echo $login_form['username']; ?>' /><br/>
-	<label>Password</label><input type='password' name='<?php echo HomeController::LOGIN_PASSWORD; ?>' value='<?php echo $login_form['password']; ?>' /><br/>
+	<label>Username</label><input type='text' name='<?php echo HomeController::LOGIN_USERNAME; ?>' value='' /><br/>
+	<label>Password</label><input type='password' name='<?php echo HomeController::LOGIN_PASSWORD; ?>' value='' /><br/>
 	<label></label><input type='submit' value='Login!' />
 </form>

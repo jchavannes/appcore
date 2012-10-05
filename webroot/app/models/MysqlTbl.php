@@ -94,7 +94,6 @@ class MysqlTbl {
 		if($opts != false && isset($opts[0])) {
 			$eval_code = "'";
 			for($i = 0; isset($opts[$i]); $i++) {
-				$opts[$i] = $this->DB->real_escape_string($opts[$i]);
 				$eval_code = 's' . $eval_code . ', $opts[' . $i . ']';
 			}
 			$eval_code = '$stmt->bind_param(\'' . $eval_code . ');';

@@ -11,6 +11,7 @@ class IndexController {
 		global $route;
 		$routes = array(
 			"home" => array("controller" => "HomeController"),
+			"auth" => array("controller" => "AuthController"),
 			"user" => array("controller" => "UserController"),
 			"login" => array("controller" => "HomeController", "action" => "login"),
 			"logout" => array("controller" => "HomeController", "action" => "logout"),
