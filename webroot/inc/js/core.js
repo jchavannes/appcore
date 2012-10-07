@@ -31,15 +31,14 @@ var Sheet = new (function() {
 });
 /*
 	params = {
-		formId : "",  // Id of the form
-		submitMessage : "",  // Message displayed while sending
-		sucessAction : {},  // Function called on success
-		failAction : "" // Function called on fail
+		formId : "",  -- Id of the form
+		submitMessage : "",  -- Message displayed while sending
+		sucessAction : {},  -- Function called on success
+		failAction : "" -- Function called on fail
 	}
 */
 var Form = function(params) {
-	console.log(typeof params +"\n"+typeof params.formId +"\n"+typeof params.submitMessage +"\n"+typeof params.successAction +"\n"+typeof params.failAction +"\n")
-	if(	typeof params != "object"
+	if (typeof params != "object"
 		|| typeof params.formId != "string"
 		|| typeof params.submitMessage != "string"
 		|| typeof params.successAction != "function"
@@ -47,19 +46,22 @@ var Form = function(params) {
 	{ return false; }
 
 	$('form#'+params.formId).ajaxForm({
-		dataType: 'json',
 		beforeSubmit: function() {
 			PopupMessage.show({message: params.submitMessage});
 		},
 		success: function(data) {
-			if(data.status == 'success') {
-				params.sucessAction();
+			if (data.indexOf("{") == 0) {data = $.parseJSON(data);}
+			else {data = {message: data};}
+			if (data.status == 'success') {
+				params.successAction();
 			} else {
-				if(typeof data.message == 'string') {
-					data = data.message;
-				}
+				var title = "Error";
+				var message = "Unable to process.";
+				if (typeof data.message == 'string') {message = data.message;}
+				if (typeof data.title == 'string') {title = data.title;}
 				PopupMessage.show({
-					message: data,
+					title: title,
+					message: message,
 					buttons: [{
 						value: "Ok",
 						onclick: params.failAction
@@ -69,36 +71,24 @@ var Form = function(params) {
 		}
 	})
 }
-var Signup = new (function() {
-	var form;
-	this.Form = function(id) {
-		var params = {
-			formId: id,
-			submitMessage: "Creating account...",
-			successAction: function() {
-				document.location.href = document.getElementsByTagName("base").href;
-			},
-			failAction: "PopupMessage.close();"
-		};
-		form = new Form(params);
-	}
-});
 var Comments = new (function() {
 	this.Form = function(id) {
 		$('form#'+id).ajaxForm({
-			dataType: 'json',
 			beforeSubmit: function() {
 				PopupMessage.show({message: "Adding comment.."});
 			},
 			success : function(data) {
+				if (data.indexOf("{") == 0) {data = $.parseJSON(data);}
+				else {data = {message: data};}
 				if(data.status == 'success') {
 					document.location.reload(true);
 				} else {
 					PopupMessage.show({
 						message: data.message,
+						title: data.title,
 						buttons: [{
 							value: "Ok",
-							onclick: (true || data.error_id === 1) ? "PopupMessage.close();" : "document.location.reload(true);"
+							onclick: "PopupMessage.close();"
 						}]
 					});
 				}

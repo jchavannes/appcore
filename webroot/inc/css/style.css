@@ -2,7 +2,7 @@ html {
 	overflow-y: scroll;
 }
 body {
-	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	background: #ddd;
 }
@@ -27,7 +27,7 @@ textarea {
 	resize: vertical;
 	height: 50px;
 	max-height: 150px;
-	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 }
 input[type=submit], input[type=button] {
 	margin-top: 20px;

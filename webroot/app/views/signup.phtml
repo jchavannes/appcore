@@ -1,22 +1,23 @@
 <h2>Signup!</h2>
 
-<?php if($signup_form['error'] && isset($signup_form['error_message'])) { ?>
-	<p><?php echo $signup_form['error_message']; ?></p>
-
-<?php } elseif($signup_form['error']) { ?>
-	<p>Invalid information.</p>
-<?php } ?>
-
 <form action='auth/signup' method='post' id='<?php echo AuthController::SIGNUP_FORM_ID; ?>'>
 	<?php $signup_form['helper']->getVerifierField(); ?>
-	<label>Username</label><input type='text' name='<?php echo HomeController::SIGNUP_USERNAME; ?>' value='' /><br/>
-	<label>Password</label><input type='password' name='<?php echo HomeController::SIGNUP_PASSWORD; ?>' value='' /><br/>
-	<label>Verify Password</label><input type='password' name='<?php echo HomeController::SIGNUP_VERIFY_PASSWORD; ?>' value='' /><br/>
+	<label>Username</label><input type='text' name='<?php echo AuthController::SIGNUP_USERNAME; ?>' value='' /><br/>
+	<label>Password</label><input type='password' name='<?php echo AuthController::SIGNUP_PASSWORD; ?>' value='' /><br/>
+	<label>Verify Password</label><input type='password' name='<?php echo AuthController::SIGNUP_VERIFY_PASSWORD; ?>' value='' /><br/>
 	<label></label><input type='submit' value='Sign Up!' />
 </form>
 
 <script type='text/javascript'>
 	$(document).ready(function() {
-		Signup.Form('<?php echo AuthController::SIGNUP_FORM_ID; ?>');
+		var params = {
+			formId: '<?php echo AuthController::SIGNUP_FORM_ID; ?>',
+			submitMessage: "Creating account...",
+			successAction: function() {
+				document.location.href = document.getElementsByTagName("base")[0].href;
+			},
+			failAction: "PopupMessage.close();"
+		};
+		var Signup = new Form(params);
 	});
 </script>

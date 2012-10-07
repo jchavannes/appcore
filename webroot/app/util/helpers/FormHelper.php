@@ -9,40 +9,20 @@ class FormHelper {
 	private $verifier = array();
 
 	public function __construct($id) {
-		$this->verifier['name'] = $id;
-		if(isset($_SESSION[$id])) {
-			$this->verifier['old'] = $_SESSION[$this->verifier['name']];
-		} else {
-			$this->verifier['old'] = false;
+		if(!isset($_SESSION[Session::FORM_VERIFIERS])) {$_SESSION[Session::FORM_VERIFIERS] = array();}
+		if(!isset($_SESSION[Session::FORM_VERIFIERS][$id])) {
+			$_SESSION[Session::FORM_VERIFIERS][$id] = md5(uniqid());
 		}
-		$this->verifier['new'] = md5(uniqid());
-		$_SESSION[$this->verifier['name']] = $this->verifier['new'];
+		$this->verifier['name'] = $id;
+		$this->verifier['val'] = $_SESSION[Session::FORM_VERIFIERS][$id];
 	}
 
 	public function getVerifierField() {
-		echo "<input type='hidden' name='" . $this->verifier['name'] . "' value='" . $this->verifier['new'] . "' />";
+		echo "<input type='hidden' name='" . $this->verifier['name'] . "' value='" . $this->verifier['val'] . "' />";
 	}
 
 	public function checkVerifier() {
-		return (isset($_POST[$this->verifier['name']]) && $_POST[$this->verifier['name']] == $this->verifier['old']);
-	}
-
-	public function newVerifier() {
-		return $this->verifier['new'];
-	}
-
-	public function oldVerifier() {
-		return $this->verifier['old'];
-	}
-
-	public function loadForm($id) {
-		if(!isset($id)) {return false;}
-		echo 
-		"<script type='text/javascript'>".
-			"$(document).ready(function() {".
-				"CommentForm.load('".$id."');".
-			"});".
-		"</script>".LB;
+		return (isset($_POST[$this->verifier['name']]) && $_POST[$this->verifier['name']] == $this->verifier['val']);
 	}
 
 }

@@ -18,7 +18,7 @@ class CommentController extends ViewController {
 			|| !isset($_POST[self::COMMENT_TITLE])
 			|| !isset($_POST[self::COMMENT_MESSAGE]) || strlen($_POST[self::COMMENT_MESSAGE]) <= 1)
 		{
-			echo '{"status": "error", "error_id":1, "message": "Please enter a comment message."}';
+			self::ajaxError(array("message" => "Please enter a comment message."));
 			return;		
 		}
 
@@ -35,32 +35,31 @@ class CommentController extends ViewController {
 
 			$CommentTbl = new CommentTbl();
 			if($CommentTbl->addComment($query_opts)) {
-				echo '{"status": "success"}';
+				self::ajaxSuccess();
 				return;
 			}
 		}
-		echo '{"status": "error", "error_id":2, "message": "We were unable to validate your submission, please refresh the page."}';
+		self::ajaxAuthError();
 		
 	}
 
 	public function deleteAction() {
 
-		$status = "error";
-
 		if($deleteId = IndexController::getPageArg(2)) {
 			$CommentTbl = new CommentTbl();
 			if(Session::checkPermission(Permissions::SUPER_ADMIN)) {
 				if($CommentTbl->deleteComment($deleteId, true)) {
-					$status = "success";
+					self::ajaxSuccess();
+					return;
 				}
 			} else {
 				if($CommentTbl->deleteComment($deleteId)) {
-					$status = "success";
+					self::ajaxSuccess();
+					return;
 				}
 			}
 		}
-		
-		echo '{"status": "'.$status.'"}';
+		self::ajaxError();
 		
 	}
 

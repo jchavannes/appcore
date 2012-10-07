@@ -78,8 +78,6 @@ class SessionTbl extends MysqlTbl {
 			" WHERE " .
 				SessionTbl::PHPSESHID . " = ?";
 
-		var_dump($query);
-
 		$opts = array($id, session_id());
 
 		return $this->query($query, $opts);

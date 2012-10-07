@@ -79,7 +79,7 @@ class CommentTbl extends MysqlTbl {
 					self::ID . " = ?";
 			$opts = array($id);
 
-		} else {
+		} elseif(isset($_SESSION[Session::USER_ID])) {
 			$query =
 				"DELETE FROM " .
 					self::NAME . 
@@ -88,6 +88,8 @@ class CommentTbl extends MysqlTbl {
 				" AND " .
 					self::USER_ID . " = ?";
 			$opts = array($id, $_SESSION[Session::USER_ID]);
+		} else {
+			return false;
 		}
 
 		return $this->query($query, $opts);

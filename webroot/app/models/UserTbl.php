@@ -34,7 +34,7 @@ class UserTbl extends MysqlTbl {
 		);
 
 		if($this->query($query, $opts) && $this->insertId() !== false && $this->insertId() > 0) {
-			$user_data = array(Session::USER_ID => $this->insertId(), Session::USERNAME => $opts[0]);
+			$user_data = array(UserTbl::ID => $this->insertId(), UserTbl::USERNAME => $opts[0], UserTbl::PERMISSIONS => 0);
 			return $user_data;
 		} else {
 			return false;

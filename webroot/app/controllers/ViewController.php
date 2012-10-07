@@ -21,6 +21,30 @@ class ViewController {
 		die();
 	}
 
+	public function ajaxSuccess($opts = array()) {
+		if(!isset($opts['status']) || $opts['status'] == "") {$opts['status'] = "success";}
+		self::ajaxMessage($opts);
+	}
+	public function ajaxError($opts = array()) {
+		if(!is_array($opts)) {$opts = array("message" => $opts);}
+		if(!isset($opts['message']) || $opts['message'] == "") {$opts['message'] = "There was an error.";}
+		if(!isset($opts['title']) || $opts['title'] == "") {$opts['title'] = "Error";}
+		if(!isset($opts['status']) || $opts['status'] == "") {$opts['status'] = "error";}
+		self::ajaxMessage($opts);
+	}
+	public function ajaxAuthError() {
+		self::ajaxError(array("title" => "Authentication Error", "message" => "Please make sure you are logged in or try refreshing your browser window."));
+	}
+	public function ajaxMessage($opts = array()) {
+		echo '{';
+		$first = true;
+		foreach($opts as $opt => $val) {
+			echo ($first ? '': ', ') . '"' . $opt . '": "' . $val . '"';
+			$first = false;
+		}
+		echo '}';
+	}
+
 	public function loadCss($path) {
 		$url = WEBROOT . CSS_DIR . $path;
 		echo "<link rel='stylesheet' href='$url'>".LB;

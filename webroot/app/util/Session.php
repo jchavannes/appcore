@@ -9,6 +9,7 @@ class Session {
 	const EMAIL = 'email';
 	const USERNAME = 'username';
 	const PERMISSIONS = 'permissions';
+	const FORM_VERIFIERS = 'form_verifiers';
 
 	public function load() {
 
