@@ -3,6 +3,7 @@
 class HomeController extends ViewController {
 
 	const SAMPLE_COMMENT_ID = 'sample_page';
+	const ABOUT_COMMENT_ID = 'about_page';
 
 	public function logoutAction() {
 
@@ -27,6 +28,14 @@ class HomeController extends ViewController {
 
 		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
 		include(ROOT_DIR . VIEW_DIR . "signup.phtml");
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+
+	}
+
+	public function aboutAction() {
+
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "about.phtml");
 		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
 
 	}

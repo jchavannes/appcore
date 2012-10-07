@@ -32,34 +32,12 @@ var Sheet = new (function() {
 var Form = function(params) {
 	if(typeof params != "object" || typeof params.formId != "string") {return false;}
 	if(typeof params.submitMessage != "string") {params.submitMessage = "Submitting...";}
-	if(typeof params.successAction != "function") {
-		params.successAction = function() {document.location.href = document.getElementsByTagName("base")[0].href;}
-	}
-	if(typeof params.failAction != "string") {params.failAction = "PopupMessage.close();";}
 	jQuery('form#'+params.formId).ajaxForm({
 		beforeSubmit: function() {
 			PopupMessage.show({message: params.submitMessage});
 		},
 		success: function(data) {
-			if (data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}
-			else {data = {message: Util.htmlEntities(data)};}
-			if (data.status == 'success') {
-				params.successAction();
-			} else {
-				var title = "Error";
-				var message = "Unable to process.";
-				if (typeof data.field == 'string') {params.failAction += ' jQuery("form input[name='+data.field+']").focus();';}
-				if (typeof data.message == 'string') {message = data.message;}
-				if (typeof data.title == 'string') {title = data.title;}
-				PopupMessage.show({
-					title: title,
-					message: message,
-					buttons: [{
-						value: "Ok",
-						onclick: params.failAction
-					}]
-				});
-			}
+			Util.serverResponse(data, params);
 		}
 	});
 }
@@ -93,24 +71,11 @@ var Comments = new (function() {
 			type: 'POST',
 			data: {id: id, test: "test", comment_form_verifier: jQuery('input[name="comment_form_verifier"]').val()},
 			success: function(data) {
-				if (data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}
-				else {data = {message: data};}
-				if(data.status == 'success') {
-					document.location.reload(true);
-				} else {
-					var message = "Unable to delete comment.";
-					if (typeof data.message == 'string') {message = data.message;}
-					var title = "Error";
-					if (typeof data.title == 'string') {title = data.title;}
-					PopupMessage.show({
-						title: title,
-						message: message,
-						buttons: [{
-							value: "Ok",
-							onclick: "PopupMessage.close();"
-						}]
-					});
-				}
+				Util.serverResponse(data, {
+					successAction: function() {
+						document.location.reload(true);
+					}
+				});
 			}
 		});		
 	}
@@ -178,5 +143,31 @@ var PopupMessage = new (function() {
 var Util = new (function() {
 	this.htmlEntities = function(str) {
 	    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+	}
+	this.serverResponse = function(data, params) {
+		if(typeof params != "object") {params = {};}
+		if(typeof params.successAction != "function") {
+			params.successAction = function() {document.location.href = document.getElementsByTagName("base")[0].href;}
+		}
+		if(typeof params.failAction != "string") {params.failAction = "PopupMessage.close();";}
+		if (data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}
+		else {data = {message: Util.htmlEntities(data)};}
+		if (data.status == 'success') {
+			params.successAction();
+		} else {
+			var title = "Error";
+			var message = "Unable to process.";
+			if (typeof data.field == 'string') {params.failAction += ' jQuery("form input[name='+data.field+']").focus();';}
+			if (typeof data.message == 'string') {message = data.message;}
+			if (typeof data.title == 'string') {title = data.title;}
+			PopupMessage.show({
+				title: title,
+				message: message,
+				buttons: [{
+					value: "Ok",
+					onclick: params.failAction
+				}]
+			});
+		}
 	}
 });

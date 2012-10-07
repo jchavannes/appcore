@@ -72,6 +72,7 @@ class Session {
 	}
 
 	public function setUser($user_data) {
+		self::logout();
 		$SessionTbl = new SessionTbl();
 		$SessionTbl->setUser($user_data[UserTbl::ID]);
 		$_SESSION[Session::LOGGED_IN] = true;
@@ -81,7 +82,6 @@ class Session {
 	}
 
 	public function logout() {
-		
 		session_unset();
 		session_regenerate_id();		
 	}

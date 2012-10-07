@@ -18,6 +18,7 @@ class IndexController {
 			"signup" => array("controller" => "HomeController", "action" => "signupAction"),
 			"admin" => array("controller" => "AdminController"),
 			"comment" => array("controller" => "CommentController"),
+			"about" => array("controller" => "HomeController", "action" => "aboutAction"),
 			"sample" => array("controller" => "HomeController", "action" => "sampleAction"),
 			"error" => array("controller" => "HomeController", "action" => "badUrl")
 		);
