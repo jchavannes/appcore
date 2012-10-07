@@ -38,20 +38,13 @@ var Form = function(params) {
 		},
 		success: function(data) {
 			Util.serverResponse(data, params);
+		},
+		error: function() {
+			Util.serverResponse('{"title": "404 Error", "message": "Something went wrong, unable to submit form."}', params);
 		}
 	});
 }
 var Comments = new (function() {
-	this.Form = function(id) {
-		var params = {
-			formId: id,
-			submitMessage: "Adding comment...",
-			successAction: function() {
-				document.location.reload(true);
-			}
-		};
-		new Form(params);
-	}
 	this.deleteComment = function(id) {
 		PopupMessage.show({
 			message: "Are you sure you want to delete this comment?",
@@ -150,15 +143,19 @@ var Util = new (function() {
 			params.successAction = function() {document.location.href = document.getElementsByTagName("base")[0].href;}
 		}
 		if(typeof params.failAction != "string") {params.failAction = "PopupMessage.close();";}
-		if (data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}
+		if(data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}
 		else {data = {message: Util.htmlEntities(data)};}
-		if (data.status == 'success') {
-			params.successAction();
+		if(data.status == 'success') {
+			if(typeof data.action == 'string') {
+				eval(data.action);
+			} else {
+				params.successAction();	
+			}
 		} else {
 			var title = "Error";
 			var message = "Unable to process.";
 			if (typeof data.field == 'string') {params.failAction += ' jQuery("form input[name='+data.field+']").focus();';}
-			if (typeof data.message == 'string') {message = data.message;}
+			if (typeof data.message == 'string' && data.message.length > 0) {message = data.message;}
 			if (typeof data.title == 'string') {title = data.title;}
 			PopupMessage.show({
 				title: title,

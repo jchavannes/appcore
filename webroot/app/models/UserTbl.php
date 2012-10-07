@@ -42,6 +42,77 @@ class UserTbl extends MysqlTbl {
 
 	}
 
+	public function editUser($data) {
+
+		if(!isset($data[UserTbl::ID])) {return false;}
+
+		$available_fields = array(UserTbl::USERNAME, UserTbl::PASSWORD, UserTbl::EMAIL);
+		$fields = array();
+		$opts = array();
+		
+		foreach($available_fields as $field) {
+			if(isset($data[$field])) {$fields[$field] = $data[$field];}
+		}
+
+		$query =
+			"UPDATE " . UserTbl::NAME . " SET ";
+		
+		$first = true;
+		foreach ($fields as $name => $value) {
+			$query .= (!$first ? ", ":"") . ($name == UserTbl::PASSWORD ? "$name = md5(CONCAT(?, ".UserTbl::DATE_CREATED."))":"$name = ?");
+			array_push($opts, ($name == UserTbl::PASSWORD ? md5($value) : $value));
+			$first = false;
+		}
+		
+		$query .=
+			" WHERE " .
+				UserTbl::ID . " = ?";
+		array_push($opts, $data[UserTbl::ID]);
+
+		if(isset($fields[UserTbl::PASSWORD])) {
+			$query .=
+				" AND " . UserTbl::PASSWORD . " = md5(CONCAT(?, " . UserTbl::DATE_CREATED . "))";
+			array_push($opts, md5($data[UserController::USER_OLDPASSWORD]));
+		}
+
+		return $this->query($query, $opts);
+
+	}
+
+	public function checkUser($data) {
+
+		$available_fields = array(UserTbl::USERNAME, UserTbl::EMAIL);
+		$fields = array();
+		$opts = array();
+		
+		foreach($available_fields as $field) {
+			if(isset($data[$field])) {$fields[$field] = $data[$field];}
+		}
+
+		$query =
+			"SELECT " . 
+				UserTbl::ID . ", " .
+				UserTbl::USERNAME . ", " .
+				UserTbl::EMAIL .
+			" FROM " . 
+				UserTbl::NAME . 
+			" WHERE (";
+		
+		$first = true;
+		foreach ($fields as $name => $value) {
+			$query .= (!$first ? " OR ":"") . "$name = ?";
+			array_push($opts, $value);
+			$first = false;
+		}
+		if(isset($data[UserTbl::ID])) {
+			$query .= ") AND " . UserTbl::ID . " != ?";
+			array_push($opts, $data[UserTbl::ID]);
+		}
+
+		return $this->getResults($query, $opts);
+
+	}
+
 	public function login($fields) {
 
 		$query = 
@@ -83,10 +154,10 @@ class UserTbl extends MysqlTbl {
 	}
 
 	public function getUserInfo($name = false) {
-		if($name === false && !isset($_SESSION['username'])) {
+		if($name === false && !isset($_SESSION[Session::USERNAME])) {
 			return false;
 		} elseif($name === false) {
-			$name = $_SESSION['username'];
+			$name = $_SESSION[Session::USERNAME];
 		}
 		$query =
 			"SELECT " .

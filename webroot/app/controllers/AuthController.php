@@ -105,6 +105,63 @@ class AuthController extends ViewController {
 
 	}
 
+	public function editAction() {
+
+		if(!SESSION::isLoggedIn() || (!Session::checkPermission(Permissions::SUPER_ADMIN) && $_POST[UserController::USER_ID] != $_SESSION[Session::USER_ID])) {
+			self::ajaxAuthError();
+			return;
+		}
+		if(!isset($_POST[UserController::USER_ID]) || empty($_POST[UserController::USER_ID])) {
+			self::ajaxError();
+			return;
+		}
+
+		$data = array(UserTbl::ID => $_POST[UserController::USER_ID]);
+
+		if(isset($_POST[UserController::USER_USERNAME]) && !empty($_POST[UserController::USER_USERNAME])) {
+			$data[UserTbl::USERNAME] = $_POST[UserController::USER_USERNAME];
+		}
+
+		if(isset($_POST[UserController::USER_EMAIL]) && !empty($_POST[UserController::USER_EMAIL])) {
+			$data[UserTbl::EMAIL] = $_POST[UserController::USER_EMAIL];
+		}
+
+		if(isset($_POST[UserController::USER_OLDPASSWORD]) && !empty($_POST[UserController::USER_OLDPASSWORD])
+			&& isset($_POST[UserController::USER_NEWPASSWORD]) && !empty($_POST[UserController::USER_NEWPASSWORD])
+			&& isset($_POST[UserController::USER_VERIFY_NEWPASSWORD]) && !empty($_POST[UserController::USER_VERIFY_NEWPASSWORD])
+			&& $_POST[UserController::USER_NEWPASSWORD] == $_POST[UserController::USER_VERIFY_NEWPASSWORD]) {
+			$data[UserTbl::PASSWORD] = $_POST[UserController::USER_NEWPASSWORD];
+			$data[UserController::USER_OLDPASSWORD] = $_POST[UserController::USER_OLDPASSWORD];
+		}
+		
+		$UserTbl = new UserTbl();
+
+		if($results = $UserTbl->checkUser($data)) {
+			if(count($results) > 0) {
+				if($results[0][UserTbl::USERNAME] == $_POST[UserController::USER_USERNAME]) {
+					self::ajaxError("Username already in use.");
+					return;
+				}
+				if($results[0][UserTbl::EMAIL] == $_POST[UserController::USER_EMAIL]) {
+					self::ajaxError("Email address already in use.");
+					return;
+				}
+				self::ajaxError();
+				return;
+			}
+		}
+
+		if($UserTbl->editUser($data)) {
+			if($data[UserTbl::ID] == $_SESSION[Session::USER_ID]) {
+				$_SESSION[Session::USERNAME] = $data[UserTbl::USERNAME];
+			}
+			self::ajaxSuccess();
+			return;
+		}
+		self::ajaxError();
+		return;
+	}
+
 	public function defaultAction() {
 		echo "sup";
 	}

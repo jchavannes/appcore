@@ -1,6 +1,7 @@
 <h3>Edit <?php echo $user_info[UserTbl::USERNAME]; ?>'s Profile</h3>
 
-<form action='user/submit' method='post' id='<?php echo UserController::FORM_ID; ?>'>
+<form action='auth/edit' method='post' id='<?php echo UserController::FORM_ID; ?>'>
+	<input type='hidden' name='<?php echo UserController::USER_ID; ?>' value='<?php echo $user_info[UserTbl::ID]; ?>' />
 	<label>Username</label>
 	<input type='text' name='<?php echo UserController::USER_USERNAME; ?>' value='<?php echo $user_info[UserTbl::USERNAME]; ?>' />
 	<br/>
@@ -20,4 +21,21 @@
 	<label></label><input type='submit' value='Save Changes' />
 </form>
 
-<?php FormHelper::loadForm(UserController::FORM_ID); ?>
+<script type='text/javascript'>
+	jQuery(document).ready(function() {
+		var params = {
+			formId: '<?php echo UserController::FORM_ID; ?>',
+			submitMessage: "Updating user info...",
+			successAction: function() {
+				PopupMessage.show({
+					message: "Profile updated!",
+					buttons: [{
+						value: "Ok",
+						onclick: 'window.location.href="user/edit/"+jQuery("input[name=<?php echo UserController::USER_USERNAME; ?>]").val();'
+					}]
+				});
+			}
+		};
+		new Form(params);
+	});
+</script>

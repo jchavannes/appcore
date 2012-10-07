@@ -12,6 +12,9 @@ class MysqlTbl {
 	public function getRow($query, $opts) {
 		$stmt = $this->getQueryStatement($query, $opts);
 		$stmt->execute();
+		$stmt->store_result();
+
+		if($stmt->num_rows == 0) {return false;}
 
 	    $metaResults = $stmt->result_metadata();
 	    $fields = $metaResults->fetch_fields();

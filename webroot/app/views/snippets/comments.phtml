@@ -34,6 +34,13 @@
 
 <script type='text/javascript'>
 	jQuery(document).ready(function() {
-		Comments.Form('<?php echo CommentController::FORM_ID; ?>');
+		var params = {
+			formId: '<?php echo CommentController::FORM_ID; ?>',
+			submitMessage: "Adding comment...",
+			successAction: function() {
+				document.location.reload(true);
+			}
+		};
+		new Form(params);
 	});
 </script>

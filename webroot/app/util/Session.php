@@ -52,7 +52,6 @@ class Session {
 	}
 
 	public function login($fields) {
-		session_unset();
 		$user = new UserTbl();
 		$user_data = $user->login($fields);
 		if($user_data[UserTbl::ID]) {

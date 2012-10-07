@@ -90,7 +90,7 @@ sheet row.title cell {
 	margin: 0px auto 0px;
 	background: #fff;
 	padding: 25px 50px 35px;
-	border-radius: 15px;
+	border-radius: 10px;
 	box-shadow: 2px 2px 5px rgba(0,0,0,.3);
 }
 .page h1 {

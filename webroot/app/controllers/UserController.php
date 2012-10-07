@@ -2,11 +2,12 @@
 
 class UserController extends ViewController {
 
+	const USER_ID = 'user_id';
 	const USER_USERNAME = 'username';
 	const USER_EMAIL = 'email';
-	const USER_OLDPASSWORD = '';
-	const USER_NEWPASSWORD = '';
-	const USER_VERIFY_NEWPASSWORD = '';
+	const USER_OLDPASSWORD = 'old_password';
+	const USER_NEWPASSWORD = 'new_password';
+	const USER_VERIFY_NEWPASSWORD = 'verify_new_password';
 
 	const FORM_ID = 'user_edit_form';
 	
@@ -16,7 +17,7 @@ class UserController extends ViewController {
 
 		$UserTbl = new UserTbl();
 
-		if(isset($page[2])) {
+		if(isset($page[2]) && !empty($page[2])) {
 			// Someone else's profile
 			$user_info = $UserTbl->getUserInfo($page[2]);
 			$user_info['me'] = false;
@@ -41,10 +42,12 @@ class UserController extends ViewController {
 
 	public function editAction() {
 
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
+
 		$UserTbl = new UserTbl();
 		$user_info = false;
 
-		if(IndexController::getPageArg(2) !== false) {
+		if(isset($page[2]) && !empty($page[2])) {
 			if(Session::checkPermission(Permissions::SUPER_ADMIN) || IndexController::getPageArg(2) == $_SESSION[SESSION::USERNAME]) {
 				$user_info = $UserTbl->getUserInfo(IndexController::getPageArg(2));
 			}
@@ -55,8 +58,6 @@ class UserController extends ViewController {
 			self::badUrl();
 			return;
 		}
-
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
 		include(ROOT_DIR . VIEW_DIR . "user" . DIRECTORY_SEPARATOR . "edit.phtml");
 		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
 
