@@ -70,4 +70,14 @@ class CommentController extends ViewController {
 		
 	}
 
+	public function showComments($id) {
+		$comments = array(
+			'id' => $id,
+			'table' => new CommentTbl(),
+			'helper' => new FormHelper(FormHelper::COMMENT_FORM)
+		);
+		$comments['data'] = $comments['table']->getAllComments($id);
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "comments.phtml");
+	}
+
 }
