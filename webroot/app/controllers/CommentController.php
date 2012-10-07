@@ -22,8 +22,8 @@ class CommentController extends ViewController {
 			return;		
 		}
 
-		$helper = new FormHelper(FormHelper::COMMENT_FORM);
-		if($helper->checkVerifier()) {
+		$FormHelper = new FormHelper(FormHelper::COMMENT_FORM);
+		if($FormHelper->checkVerifier()) {
 			$query_opts = array(
 				CommentTbl::USER_ID => isset($_SESSION[Session::USER_ID]) ? $_SESSION[Session::USER_ID] : "0",
 				CommentTbl::ITEM => $_POST[self::COMMENT_ITEM],
@@ -45,9 +45,9 @@ class CommentController extends ViewController {
 
 	public function deleteAction() {
 
-		$helper = new FormHelper(FormHelper::COMMENT_FORM);
+		$FormHelper = new FormHelper(FormHelper::COMMENT_FORM);
 		
-		if(!$helper->checkVerifier()) {
+		if(!$FormHelper->checkVerifier()) {
 			self::ajaxAuthError();
 			return;
 		}

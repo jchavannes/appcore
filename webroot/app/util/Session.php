@@ -81,8 +81,7 @@ class Session {
 	}
 
 	public function logout() {
-
-		// Start brand new session
+		
 		session_unset();
 		session_regenerate_id();		
 	}

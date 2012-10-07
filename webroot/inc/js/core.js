@@ -43,7 +43,7 @@ var Form = function(params) {
 		},
 		success: function(data) {
 			if (data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}
-			else {data = {message: data};}
+			else {data = {message: Util.htmlEntities(data)};}
 			if (data.status == 'success') {
 				params.successAction();
 			} else {
@@ -97,12 +97,15 @@ var Comments = new (function() {
 			success: function(data) {
 				if (data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}
 				else {data = {message: data};}
-				var message = "Unable to delete comment.";
-				if (typeof data.message == 'string') {message = data.message;}
 				if(data.status == 'success') {
 					document.location.reload(true);
 				} else {
+					var message = "Unable to delete comment.";
+					if (typeof data.message == 'string') {message = data.message;}
+					var title = "Error";
+					if (typeof data.title == 'string') {title = data.title;}
 					PopupMessage.show({
+						title: title,
 						message: message,
 						buttons: [{
 							value: "Ok",
@@ -114,7 +117,7 @@ var Comments = new (function() {
 		});		
 	}
 });
-var PopupMessage = new(function() {
+var PopupMessage = new (function() {
 	this.init = function() {
 		if(jQuery('#body_wrapper').length == 0) {
 			jQuery('body').append("<div id='body_wrapper'></div>");
@@ -173,4 +176,9 @@ var PopupMessage = new(function() {
 	}
 	jQuery('document').ready(this.init);
 	jQuery(window).resize(this.resize);
+});
+var Util = new (function() {
+	this.htmlEntities = function(str) {
+	    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+	}
 });

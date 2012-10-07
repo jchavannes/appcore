@@ -1,10 +1,24 @@
 <h2>Login!</h2>
-<?php if($login_form['error']) { ?>
-	<p>Incorrect login information.</p>
-<?php } ?>
-<form action='login' method='post'>
-	<?php $login_form['helper']->getVerifierField(); ?>
+<form action='auth/login' method='post' id='<?php echo AuthController::LOGIN_FORM_ID; ?>'>
+	<?php
+		$FormHelper = new FormHelper(FormHelper::LOGIN_FORM);
+		$FormHelper->getVerifierField();
+	?>
 	<label>Username</label><input type='text' name='<?php echo AuthController::LOGIN_USERNAME; ?>' value='' /><br/>
 	<label>Password</label><input type='password' name='<?php echo AuthController::LOGIN_PASSWORD; ?>' value='' /><br/>
 	<label></label><input type='submit' value='Login!' />
 </form>
+
+<script type='text/javascript'>
+	jQuery(document).ready(function() {
+		var params = {
+			formId: '<?php echo AuthController::LOGIN_FORM_ID; ?>',
+			submitMessage: "Logging in...",
+			successAction: function() {
+				document.location.href = document.getElementsByTagName("base")[0].href;
+			},
+			failAction: "PopupMessage.close();"
+		};
+		var Login = new Form(params);
+	});
+</script>
