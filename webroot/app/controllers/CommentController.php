@@ -16,7 +16,7 @@ class CommentController extends ViewController {
 
 		if(	!isset($_POST[self::COMMENT_ITEM])
 			|| !isset($_POST[self::COMMENT_TITLE])
-			|| !isset($_POST[self::COMMENT_MESSAGE]) || strlen($_POST[self::COMMENT_MESSAGE]) <= 1)
+			|| !isset($_POST[self::COMMENT_MESSAGE]) || empty($_POST[self::COMMENT_MESSAGE]))
 		{
 			self::ajaxError(array(
 				"message" => "Please enter a comment message.",

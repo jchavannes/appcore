@@ -62,9 +62,7 @@ class UserTbl extends MysqlTbl {
 			md5($fields[UserTbl::PASSWORD])
 		);
 
-		$row = $this->getRow($query, $opts);
-
-		return $row;
+		return $this->getRow($query, $opts);
 
 	}
 

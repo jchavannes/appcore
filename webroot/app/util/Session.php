@@ -23,7 +23,6 @@ class Session {
 			&& $session[SessionTbl::IP_ADDRESS] == $ip
 			&& $session[SessionTbl::FIRST_VISIT] > $time - SESSION::MAX_SESSION_LENGTH)
 		{
-
 			$updates = array(
 				SessionTbl::VISITS => $session[SessionTbl::VISITS] + 1,
 				SessionTbl::LAST_VISIT => $time
@@ -38,7 +37,6 @@ class Session {
 		} else {
 
 			$_SESSION[Session::LOGGED_IN] = false;
-
 			$fields = array(
 				SessionTbl::IP_ADDRESS => $ip,
 				SessionTbl::PHPSESHID => session_id(),
@@ -47,32 +45,24 @@ class Session {
 				SessionTbl::ID_RESET => $time,
 				SessionTbl::VISITS => 1
 			);
-
-			if($SessionTbl->createSession($ip, $time)) {
-			}
+			$SessionTbl->createSession($ip, $time);
 
 		}
-
 		HttpRequestTbl::logHttpRequest();
-
 	}
 
 	public function login($fields) {
-
+		session_unset();
 		$user = new UserTbl();
-
 		$user_data = $user->login($fields);
-
 		if($user_data[UserTbl::ID]) {
 			Session::setUser($user_data);
 			return true;
 		}
 		return false;
-
 	}
 
 	public function setUser($user_data) {
-		self::logout();
 		$SessionTbl = new SessionTbl();
 		$SessionTbl->setUser($user_data[UserTbl::ID]);
 		$_SESSION[Session::LOGGED_IN] = true;
