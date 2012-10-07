@@ -50,4 +50,8 @@ class HomeController extends ViewController {
 		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
 	}
 
+	public function newhomeAction() {
+		include(ROOT_DIR . VIEW_DIR . "newhome.phtml");		
+	}
+
 }

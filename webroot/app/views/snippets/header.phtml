@@ -39,7 +39,7 @@
 				<?php $page = IndexController::getPageArg(); ?>
 				<ul>
 					<li class='home<?php if($page[0] == 'home') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>'><span></span>Home</a></li>
-					<li class='star<?php if($page[0] == 'about') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>about'><span></span>About</a></li>
+					<li class='paperclip<?php if($page[0] == 'about') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>about'><span></span>About</a></li>
 					<?php if(Session::isLoggedIn()) { ?>
 						<li class='star<?php if($page[0] == 'sample') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>sample'><span></span>Sample</a></li>
 					<?php } ?>

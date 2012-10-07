@@ -46,32 +46,23 @@ class UserTbl extends MysqlTbl {
 
 		if(!isset($data[UserTbl::ID])) {return false;}
 
-		$available_fields = array(UserTbl::USERNAME, UserTbl::PASSWORD, UserTbl::EMAIL);
-		$fields = array();
+		$fields = parent::filterFields($data, array(UserTbl::USERNAME, UserTbl::PASSWORD, UserTbl::EMAIL));
 		$opts = array();
-		
-		foreach($available_fields as $field) {
-			if(isset($data[$field])) {$fields[$field] = $data[$field];}
-		}
 
-		$query =
-			"UPDATE " . UserTbl::NAME . " SET ";
+		$query = "UPDATE " . UserTbl::NAME . " SET ";
 		
 		$first = true;
-		foreach ($fields as $name => $value) {
-			$query .= (!$first ? ", ":"") . ($name == UserTbl::PASSWORD ? "$name = md5(CONCAT(?, ".UserTbl::DATE_CREATED."))":"$name = ?");
+		foreach($fields as $name => $value) {
+			$query .= (!$first ? ", ":"") . "$name = " . ($name == UserTbl::PASSWORD ? "md5(CONCAT(?, ".UserTbl::DATE_CREATED."))":"?");
 			array_push($opts, ($name == UserTbl::PASSWORD ? md5($value) : $value));
 			$first = false;
 		}
 		
-		$query .=
-			" WHERE " .
-				UserTbl::ID . " = ?";
+		$query .= " WHERE " . UserTbl::ID . " = ?";
 		array_push($opts, $data[UserTbl::ID]);
 
 		if(isset($fields[UserTbl::PASSWORD])) {
-			$query .=
-				" AND " . UserTbl::PASSWORD . " = md5(CONCAT(?, " . UserTbl::DATE_CREATED . "))";
+			$query .= " AND " . UserTbl::PASSWORD . " = md5(CONCAT(?, " . UserTbl::DATE_CREATED . "))";
 			array_push($opts, md5($data[UserController::USER_OLDPASSWORD]));
 		}
 
@@ -81,13 +72,8 @@ class UserTbl extends MysqlTbl {
 
 	public function checkUser($data) {
 
-		$available_fields = array(UserTbl::USERNAME, UserTbl::EMAIL);
-		$fields = array();
+		$fields = parent::filterFields($data, array(UserTbl::USERNAME, UserTbl::EMAIL));
 		$opts = array();
-		
-		foreach($available_fields as $field) {
-			if(isset($data[$field])) {$fields[$field] = $data[$field];}
-		}
 
 		$query =
 			"SELECT " . 
@@ -104,8 +90,9 @@ class UserTbl extends MysqlTbl {
 			array_push($opts, $value);
 			$first = false;
 		}
+		$query .= ")";
 		if(isset($data[UserTbl::ID])) {
-			$query .= ") AND " . UserTbl::ID . " != ?";
+			$query .= " AND " . UserTbl::ID . " != ?";
 			array_push($opts, $data[UserTbl::ID]);
 		}
 

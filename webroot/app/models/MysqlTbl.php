@@ -105,4 +105,12 @@ class MysqlTbl {
 		return $stmt;
 	}
 
+	public function filterFields($data, $available_fields) {
+		$fields = array();
+		foreach($available_fields as $field) {
+			if(isset($data[$field])) {$fields[$field] = $data[$field];}
+		}
+		return $fields;
+	}
+
 }

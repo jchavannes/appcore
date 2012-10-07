@@ -2,16 +2,15 @@
 
 class AuthController extends ViewController {
 
+	const SIGNUP_FORM_ID 			= 'signup_form';
 	const SIGNUP_USERNAME 			= 'username';
 	const SIGNUP_PASSWORD 			= 'password';
 	const SIGNUP_VERIFY_PASSWORD 	= 'verify_password';
 
+	const LOGIN_FORM_ID 			= 'login_form';
 	const LOGIN_USERNAME 			= 'username';
 	const LOGIN_PASSWORD 			= 'password';
 	
-	const SIGNUP_FORM_ID = 'signup_form';
-	const LOGIN_FORM_ID = 'login_form';
-
 	public function loginAction() {
 
 		if(SESSION::isLoggedIn()) {return parent::ajaxError("You are logged in.");}
@@ -118,7 +117,7 @@ class AuthController extends ViewController {
 
 		$data = array(UserTbl::ID => $_POST[UserController::USER_ID]);
 
-		if(isset($_POST[UserController::USER_USERNAME]) && !empty($_POST[UserController::USER_USERNAME])) {
+		if(isset($_POST[UserController::USER_USERNAME]) && !empty($_POST[UserController::USER_USERNAME]) && Session::checkPermission(Permissions::SUPER_ADMIN)) {
 			$data[UserTbl::USERNAME] = $_POST[UserController::USER_USERNAME];
 		}
 
