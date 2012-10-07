@@ -30,13 +30,12 @@ var Sheet = new (function() {
 	jQuery(document).ready(this.init);
 });
 var Form = function(params) {
-	if (typeof params != "object"
-		|| typeof params.formId != "string"
-		|| typeof params.submitMessage != "string"
-		|| typeof params.successAction != "function"
-		|| typeof params.failAction != "string")
-	{ return false; }
-
+	if(typeof params != "object" || typeof params.formId != "string") {return false;}
+	if(typeof params.submitMessage != "string") {params.submitMessage = "Submitting...";}
+	if(typeof params.successAction != "function") {
+		params.successAction = function() {document.location.href = document.getElementsByTagName("base")[0].href;}
+	}
+	if(typeof params.failAction != "string") {params.failAction = "PopupMessage.close();";}
 	jQuery('form#'+params.formId).ajaxForm({
 		beforeSubmit: function() {
 			PopupMessage.show({message: params.submitMessage});
@@ -71,8 +70,7 @@ var Comments = new (function() {
 			submitMessage: "Adding comment...",
 			successAction: function() {
 				document.location.reload(true);
-			},
-			failAction: "PopupMessage.close();"
+			}
 		};
 		new Form(params);
 	}
