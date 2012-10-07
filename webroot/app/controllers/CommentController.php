@@ -45,7 +45,14 @@ class CommentController extends ViewController {
 
 	public function deleteAction() {
 
-		if($deleteId = IndexController::getPageArg(2)) {
+		$helper = new FormHelper(FormHelper::COMMENT_FORM);
+		
+		if(!$helper->checkVerifier()) {
+			self::ajaxAuthError();
+			return;
+		}
+
+		if(isset($_POST['id']) && $deleteId = $_POST['id']) {
 			$CommentTbl = new CommentTbl();
 			if(Session::checkPermission(Permissions::SUPER_ADMIN)) {
 				if($CommentTbl->deleteComment($deleteId, true)) {

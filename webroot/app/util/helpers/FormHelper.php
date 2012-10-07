@@ -2,9 +2,9 @@
 
 class FormHelper {
 
-	const SIGNUP_FORM 	= 'signup_form_verifer';
-	const LOGIN_FORM 	= 'login_form_verifer';
-	const COMMENT_FORM 	= 'comment_form_verifer';
+	const SIGNUP_FORM 	= 'signup_form_verifier';
+	const LOGIN_FORM 	= 'login_form_verifier';
+	const COMMENT_FORM 	= 'comment_form_verifier';
 
 	private $verifier = array();
 

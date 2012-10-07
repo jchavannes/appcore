@@ -1,17 +1,17 @@
 var Sheet = new (function() {
 	this.init = function() {
-		$('sheet').each(function() {
-			var sheet = $(this);
+		jQuery('sheet').each(function() {
+			var sheet = jQuery(this);
 			var rows = sheet.find('row');
 			var cellWidths = [];
 			var rowHeights = [];
 			rows.each(function(i) {
-				var height = parseInt($(this).height()) - 5;
+				var height = parseInt(jQuery(this).height()) - 5;
 				if(typeof rowHeights[i] == 'undefined' || width > rowHeights[i]) {
 					rowHeights[i] = height;
 				}
 				rows.eq(i).find('cell').each(function(j) {
-					var width = parseInt($(this).width());
+					var width = parseInt(jQuery(this).width());
 					if(typeof cellWidths[j] == 'undefined' || width > cellWidths[j]) {
 						cellWidths[j] = width;
 					}
@@ -19,7 +19,7 @@ var Sheet = new (function() {
 			});
 			rows.each(function(i) {
 				rows.eq(i).find('cell').each(function(j) {
-					$(this).width(cellWidths[j]).height(rowHeights[i]);
+					jQuery(this).width(cellWidths[j]).height(rowHeights[i]);
 				});
 			});
 			var totalWidth = 0;
@@ -27,16 +27,8 @@ var Sheet = new (function() {
 			sheet.width(totalWidth);
 		});
 	}
-	$(document).ready(this.init);
+	jQuery(document).ready(this.init);
 });
-/*
-	params = {
-		formId : "",  -- Id of the form
-		submitMessage : "",  -- Message displayed while sending
-		sucessAction : {},  -- Function called on success
-		failAction : "" -- Function called on fail
-	}
-*/
 var Form = function(params) {
 	if (typeof params != "object"
 		|| typeof params.formId != "string"
@@ -45,18 +37,19 @@ var Form = function(params) {
 		|| typeof params.failAction != "string")
 	{ return false; }
 
-	$('form#'+params.formId).ajaxForm({
+	jQuery('form#'+params.formId).ajaxForm({
 		beforeSubmit: function() {
 			PopupMessage.show({message: params.submitMessage});
 		},
 		success: function(data) {
-			if (data.indexOf("{") == 0) {data = $.parseJSON(data);}
+			if (data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}
 			else {data = {message: data};}
 			if (data.status == 'success') {
 				params.successAction();
 			} else {
 				var title = "Error";
 				var message = "Unable to process.";
+				if (typeof data.field == 'string') {params.failAction += ' jQuery("form input[name='+data.field+']").focus();';}
 				if (typeof data.message == 'string') {message = data.message;}
 				if (typeof data.title == 'string') {title = data.title;}
 				PopupMessage.show({
@@ -69,31 +62,19 @@ var Form = function(params) {
 				});
 			}
 		}
-	})
+	});
 }
 var Comments = new (function() {
 	this.Form = function(id) {
-		$('form#'+id).ajaxForm({
-			beforeSubmit: function() {
-				PopupMessage.show({message: "Adding comment.."});
+		var params = {
+			formId: id,
+			submitMessage: "Adding comment...",
+			successAction: function() {
+				document.location.reload(true);
 			},
-			success : function(data) {
-				if (data.indexOf("{") == 0) {data = $.parseJSON(data);}
-				else {data = {message: data};}
-				if(data.status == 'success') {
-					document.location.reload(true);
-				} else {
-					PopupMessage.show({
-						message: data.message,
-						title: data.title,
-						buttons: [{
-							value: "Ok",
-							onclick: "PopupMessage.close();"
-						}]
-					});
-				}
-			}
-		});
+			failAction: "PopupMessage.close();"
+		};
+		new Form(params);
 	}
 	this.deleteComment = function(id) {
 		PopupMessage.show({
@@ -109,14 +90,20 @@ var Comments = new (function() {
 	}
 	this.realDeleteComment = function(id) {
 		PopupMessage.show({message: "Deleting comment.."});
-		$.ajax('comment/delete/'+id, {
+		jQuery.ajax({
+			url: 'comment/delete',
+			type: 'POST',
+			data: {id: id, test: "test", comment_form_verifier: jQuery('input[name="comment_form_verifier"]').val()},
 			success: function(data) {
-				data = $.parseJSON(data);
+				if (data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}
+				else {data = {message: data};}
+				var message = "Unable to delete comment.";
+				if (typeof data.message == 'string') {message = data.message;}
 				if(data.status == 'success') {
 					document.location.reload(true);
 				} else {
 					PopupMessage.show({
-						message: "Unable to delete comment.",
+						message: message,
 						buttons: [{
 							value: "Ok",
 							onclick: "PopupMessage.close();"
@@ -129,14 +116,14 @@ var Comments = new (function() {
 });
 var PopupMessage = new(function() {
 	this.init = function() {
-		if($('#body_wrapper').length == 0) {
-			$('body').append("<div id='body_wrapper'></div>");
-			$('body').children(':not(#body_wrapper)').each(function() {
-				$(this).appendTo($('#body_wrapper'));
+		if(jQuery('#body_wrapper').length == 0) {
+			jQuery('body').append("<div id='body_wrapper'></div>");
+			jQuery('body').children(':not(#body_wrapper)').each(function() {
+				jQuery(this).appendTo(jQuery('#body_wrapper'));
 			});
 		}
 		var html = "<div class='popup'><div class='box'><h3></h3><div class='message'></div></div></div>";
-		$('body').append(html);
+		jQuery('body').append(html);
 	}
 	this.show = function(opts) {
 		if(typeof opts != 'object') {return false;}
@@ -150,40 +137,40 @@ var PopupMessage = new(function() {
 			}
 			opts.message += "</div>";	
 		}
-		$('.popup h3').html(opts.title);
-		$('.popup .message').html(opts.message);
-		$('.popup .options input').eq(0).focus();
-		$('.popup').addClass('active');
+		jQuery('.popup h3').html(opts.title);
+		jQuery('.popup .message').html(opts.message);
+		jQuery('.popup .options input').eq(0).focus();
+		jQuery('.popup').addClass('active');
 		PopupMessage.resize();
 	}
 	this.close = function() {
-		$('.popup').removeClass('active');
+		jQuery('.popup').removeClass('active');
 	}
 	this.resize = function() {
-		var winHeight = $(window).height();
-		$('.popup.active').each(function() {
-			var box = $(this).find('.box');
-			var body = $('body');
+		var winHeight = jQuery(window).height();
+		jQuery('.popup.active').each(function() {
+			var box = jQuery(this).find('.box');
+			var body = jQuery('body');
 			if(box.height() > winHeight) {
 				if(!body.hasClass('oversizePopup')) {
-					var ele = $('#body_wrapper *:eq(0)');
-					var scrollTop = $(document).scrollTop();
+					var ele = jQuery('#body_wrapper *:eq(0)');
+					var scrollTop = jQuery(document).scrollTop();
 					var marginTop = ele.css('margin-top');
 					ele.data({'margin-top': marginTop, 'scroll-top': scrollTop}).css({'margin-top': -scrollTop});
 				}
-				$('body').addClass('oversizePopup');
+				jQuery('body').addClass('oversizePopup');
 				box.css({'margin-top':''});
 			} else {
 				if(body.hasClass('oversizePopup')) {
-					var ele = $('#body_wrapper *:eq(0)');
+					var ele = jQuery('#body_wrapper *:eq(0)');
 					ele.css({'margin-top': ele.data('margin-top')});
-					$('body').removeClass('oversizePopup');
-					$(document).scrollTop(ele.data('scroll-top'));
+					jQuery('body').removeClass('oversizePopup');
+					jQuery(document).scrollTop(ele.data('scroll-top'));
 				}
 				box.css({'margin-top':-parseInt(box.height())/2});
 			}
 		});
 	}
-	$('document').ready(this.init);
-	$(window).resize(this.resize);
+	jQuery('document').ready(this.init);
+	jQuery(window).resize(this.resize);
 });

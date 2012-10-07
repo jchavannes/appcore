@@ -31,10 +31,16 @@ class AuthController extends ViewController {
 				));
 				return;
 			} elseif(!isset($_POST[AuthController::SIGNUP_PASSWORD]) || empty($_POST[AuthController::SIGNUP_PASSWORD])) {
-				self::ajaxError("Please enter a password.");
+				self::ajaxError(array(
+					"message" => "Please enter a password.",
+					"field" => AuthController::SIGNUP_PASSWORD
+				));
 				return;
 			} elseif(!isset($_POST[AuthController::SIGNUP_VERIFY_PASSWORD]) || empty($_POST[AuthController::SIGNUP_VERIFY_PASSWORD]) || $_POST[AuthController::SIGNUP_PASSWORD] != $_POST[AuthController::SIGNUP_VERIFY_PASSWORD]) {
-				self::ajaxError("Password do not match.");
+				self::ajaxError(array(
+					"message" => "Passwords do not match.",
+					"field" => AuthController::SIGNUP_VERIFY_PASSWORD
+				));
 				return;	
 			} else {
 
@@ -53,11 +59,8 @@ class AuthController extends ViewController {
 					return;
 				}
 			}
-		} else {
-			self::ajaxError("No data.");
-			return;
 		}
-		self::ajaxError();
+		self::ajaxError("No data.");
 	}
 
 	public function defaultAction() {
