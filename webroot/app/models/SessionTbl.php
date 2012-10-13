@@ -2,16 +2,16 @@
 
 class SessionTbl extends MysqlTbl {
 
-	const NAME 			= 'session';
+	const NAME = 'session';
 
-	const ID 			= 'id';
-	const USER_ID		= 'user_id';
-	const IP_ADDRESS 	= 'ip_address';
-	const FIRST_VISIT 	= 'first_visit';
-	const LAST_VISIT 	= 'last_visit';
-	const ID_RESET 		= 'id_reset';
-	const VISITS 		= 'visits';
-	const PHPSESHID 	= 'phpseshid';
+	const ID = 'id';
+	const USER_ID = 'user_id';
+	const IP_ADDRESS = 'ip_address';
+	const FIRST_VISIT = 'first_visit';
+	const LAST_VISIT = 'last_visit';
+	const ID_RESET = 'id_reset';
+	const VISITS = 'visits';
+	const PHPSESHID = 'phpseshid';
 
 	public function getSession($id) {
 

@@ -16,17 +16,17 @@ class MysqlTbl {
 
 		if($stmt->num_rows == 0) {return false;}
 
-	    $metaResults = $stmt->result_metadata();
-	    $fields = $metaResults->fetch_fields();
-	    $first = true;
-	    $result = array();
-	    $eval_code = '$stmt->bind_result(';
-	    foreach($fields as $field) {
-	    	$eval_code .= ($first ? "" : ", ") . '$result[\''.$field->name.'\']'; $first = false;
-	    }
-	    $eval_code .= ');';
-	    eval($eval_code);
-	    $stmt->fetch();
+		$metaResults = $stmt->result_metadata();
+		$fields = $metaResults->fetch_fields();
+		$first = true;
+		$result = array();
+		$eval_code = '$stmt->bind_result(';
+		foreach($fields as $field) {
+			$eval_code .= ($first ? "" : ", ") . '$result[\''.$field->name.'\']'; $first = false;
+		}
+		$eval_code .= ');';
+		eval($eval_code);
+		$stmt->fetch();
 		return $result;
 	}
 
@@ -35,22 +35,22 @@ class MysqlTbl {
 		$stmt->execute();
 		$stmt->store_result();
 
-	    $metaResults = $stmt->result_metadata();
-	    $fields = $metaResults->fetch_fields();
+		$metaResults = $stmt->result_metadata();
+		$fields = $metaResults->fetch_fields();
 
-	    $results = array();
+		$results = array();
 
-	    for($i = 0; $i < $stmt->num_rows; $i++) {
-		    $first = true;
-		    $result = array();
-		    $eval_code = '$stmt->bind_result(';
-		    foreach($fields as $field) {
-		    	$eval_code .= ($first ? "" : ", ") . '$result[\''.$field->name.'\']'; $first = false;
-		    }
-		    $eval_code .= ');';
-		    eval($eval_code);
-		    $stmt->fetch();
-		    $results[$i] = $result;
+		for($i = 0; $i < $stmt->num_rows; $i++) {
+			$first = true;
+			$result = array();
+			$eval_code = '$stmt->bind_result(';
+			foreach($fields as $field) {
+				$eval_code .= ($first ? "" : ", ") . '$result[\''.$field->name.'\']'; $first = false;
+			}
+			$eval_code .= ');';
+			eval($eval_code);
+			$stmt->fetch();
+			$results[$i] = $result;
 		}
 
 		return $results;

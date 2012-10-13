@@ -2,14 +2,14 @@
 
 class AuthController extends ViewController {
 
-	const SIGNUP_FORM_ID 			= 'signup_form';
-	const SIGNUP_USERNAME 			= 'username';
-	const SIGNUP_PASSWORD 			= 'password';
-	const SIGNUP_VERIFY_PASSWORD 	= 'verify_password';
+	const SIGNUP_FORM_ID = 'signup_form';
+	const SIGNUP_USERNAME = 'username';
+	const SIGNUP_PASSWORD = 'password';
+	const SIGNUP_VERIFY_PASSWORD = 'verify_password';
 
-	const LOGIN_FORM_ID 			= 'login_form';
-	const LOGIN_USERNAME 			= 'username';
-	const LOGIN_PASSWORD 			= 'password';
+	const LOGIN_FORM_ID = 'login_form';
+	const LOGIN_USERNAME = 'username';
+	const LOGIN_PASSWORD = 'password';
 	
 	public function loginAction() {
 

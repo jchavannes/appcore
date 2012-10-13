@@ -2,18 +2,18 @@
 
 class UserTbl extends MysqlTbl {
 
-	const NAME 			= 'user';
+	const NAME = 'user';
 
-	const ID 			= 'id';
-	const USERNAME 		= 'username';
-	const PASSWORD 		= 'password';
-	const EMAIL 		= 'email';
-	const DATE_CREATED 	= 'date_created';
-	const PERMISSIONS	= 'permissions';
+	const ID = 'id';
+	const USERNAME = 'username';
+	const PASSWORD = 'password';
+	const EMAIL = 'email';
+	const DATE_CREATED = 'date_created';
+	const PERMISSIONS = 'permissions';
 
-	const CUSTOM_POSTS	= 'posts';
+	const CUSTOM_POSTS = 'posts';
 
-	const LOGGED_IN		= 'logged_in';
+	const LOGGED_IN = 'logged_in';
 
 	public function createUser($fields) {
 
