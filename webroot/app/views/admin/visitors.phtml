@@ -2,18 +2,27 @@
 
 <sheet>
 	<row class='title'>
-		<cell>Request URL</cell>
-		<cell>Requests</cell>
-		<cell>Posts</cell>
-		<cell>Sessions</cell>
+		<cell>Username</cell>
+		<cell>IP Address</cell>
+		<cell>First Visit</cell>
+		<cell>Last Visit</cell>
+		<cell>Visits</cell>
 	</row>
 
-	<?php foreach($requests as $request) { ?>
+	<?php foreach($visits as $visit) { ?>
 	<row>
-		<cell><?php echo $request[HttpRequestTbl::GET]; ?></cell>
-		<cell><?php echo $request['count']; ?></cell>
-		<cell><?php echo $request['posts']; ?></cell>
-		<cell><?php echo $request['sessions']; ?></cell>
+		<cell><?php echo $visit[UserTbl::USERNAME]; ?></cell>
+		<cell><?php echo $visit[SessionTbl::IP_ADDRESS]; ?></cell>
+		<cell><?php echo date("M j, Y, g:i a", $visit[SessionTbl::FIRST_VISIT]); ?></cell>
+		<cell><?php echo date("M j, Y, g:i a", $visit[SessionTbl::LAST_VISIT]); ?></cell>
+		<cell><?php echo $visit[SessionTbl::VISITS]; ?></cell>
 	</row>
-	<?php } ?>	
+	<?php } ?>
+
+</sheet>
+
+<sheet>
+
+
+
 </sheet>

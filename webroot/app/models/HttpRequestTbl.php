@@ -40,7 +40,7 @@ class HttpRequestTbl extends MysqlTbl {
 			if(strlen($post) > 255) {break;}
 		}
 
-		$get = (isset($_GET['q']) ? $_GET['q'] : null);
+		$get = "/".(isset($_GET['q']) ? $_GET['q'] : "");
 		$post = substr($post, 0, 255);
 
 		$opts = array(

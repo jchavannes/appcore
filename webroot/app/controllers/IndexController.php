@@ -37,7 +37,7 @@ class IndexController {
 		}
 
 		if(!isset($route['action'])) {
-			if(isset($request['parts'][1])) {
+			if(isset($request['parts'][1]) && !empty($request['parts'][1])) {
 				$route['action'] = $request['parts'][1] . "Action";
 			} else {
 				$route['action'] = "defaultAction";
@@ -53,7 +53,7 @@ class IndexController {
 	public function runAction($route) {
 
 		if(class_exists($route['controller']) && method_exists($route['controller'], $route['action'])) {
-			call_user_method($route['action'], $route['controller']);
+			call_user_func(array($route['controller'], $route['action']));
 			return true;
 		}
 		return false;

@@ -84,4 +84,27 @@ class SessionTbl extends MysqlTbl {
 
 	}
 
+	public function getVisits() {
+
+		$query = 
+			"SELECT " .
+				UserTbl::NAME . "." . UserTbl::USERNAME . " AS " . UserTbl::USERNAME . ", " .
+				SessionTbl::NAME . "." . SessionTbl::IP_ADDRESS . " AS " . SessionTbl::IP_ADDRESS . ", " .
+				SessionTbl::NAME . "." . SessionTbl::FIRST_VISIT . " AS " . SessionTbl::FIRST_VISIT . ", " .
+				SessionTbl::NAME . "." . SessionTbl::LAST_VISIT . " AS " . SessionTbl::LAST_VISIT . ", " .
+				SessionTbl::NAME . "." . SessionTbl::VISITS . " AS " . SessionTbl::VISITS . 
+			" FROM " .
+				SessionTbl::NAME . 
+			 " LEFT JOIN " . 
+			 	UserTbl::NAME .
+			 " ON " .
+			 	SessionTbl::NAME . "." . SessionTbl::USER_ID . " = " . UserTbl::NAME . "." . UserTbl::ID .
+			 " ORDER BY " .
+			 	SessionTbl::LAST_VISIT .
+			 " DESC";
+
+		return $this->getResults($query);
+
+	}
+
 }

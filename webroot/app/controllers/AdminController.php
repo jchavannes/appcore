@@ -4,11 +4,6 @@ class AdminController extends ViewController {
 	
 	function defaultAction() {
 
-		if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
-			self::badUrl();
-			return;
-		}
-
 		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
 		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "adminIndex.phtml");
 		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
@@ -30,7 +25,7 @@ class AdminController extends ViewController {
 
 	}
 	
-	function visitorsAction() {
+	function requestsAction() {
 
 		if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
 			self::badUrl();
@@ -39,6 +34,21 @@ class AdminController extends ViewController {
 
 		$HttpRequestTbl = new HttpRequestTbl();
 		$requests = $HttpRequestTbl->getPageCounts();
+
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "requests.phtml");
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+	}
+	
+	function visitorsAction() {
+
+		if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
+			self::badUrl();
+			return;
+		}
+
+		$SessionTbl = new SessionTbl();
+		$visits = $SessionTbl->getVisits();
 
 		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
 		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "visitors.phtml");
