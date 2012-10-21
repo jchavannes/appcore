@@ -113,4 +113,14 @@ class MysqlTbl {
 		return $fields;
 	}
 
+	public function getAll($limit = false) {
+		if($limit <= 0) {$limit = 50;}
+		$query = 
+			"SELECT * FROM " . 
+				self::NAME . 
+			" LIMIT ?";
+		$opts = array($limit);
+		return $this->getResults($query, $opts);
+	}
+
 }

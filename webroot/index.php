@@ -30,6 +30,7 @@ $class_paths = array(
 	CONTROLLER_DIR . "SampleController.php",
 	UTIL_DIR . "Session.php",
 	UTIL_DIR . "Permissions.php",
+	UTIL_DIR . "Sheets.php",
 	MODEL_DIR . "MysqlTbl.php",
 	MODEL_DIR . "SessionTbl.php",
 	MODEL_DIR . "UserTbl.php",
