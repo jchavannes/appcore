@@ -140,7 +140,7 @@ var Util = new (function() {
 	this.serverResponse = function(data, params) {
 		if(typeof params != "object") {params = {};}
 		if(typeof params.successAction != "function") {
-			params.successAction = function() {document.location.href = document.getElementsByTagName("base")[0].href;}
+			params.successAction = function() {window.reload(true);}
 		}
 		if(typeof params.failAction != "string") {params.failAction = "PopupMessage.close();";}
 		if(data.indexOf("{") == 0) {data = jQuery.parseJSON(data);}

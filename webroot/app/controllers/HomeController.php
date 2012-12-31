@@ -8,7 +8,7 @@ class HomeController extends ViewController {
 	public function logoutAction() {
 
 		Session::logout();
-		parent::Redirect();
+		parent::Redirect('admin/');
 
 	}
 
