@@ -1,2 +1,3 @@
 webroot/app/config/local.config.php
 .idea
+app.log

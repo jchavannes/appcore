@@ -12,7 +12,7 @@
 	<?php self::loadLib('jquery-ui.min.js'); ?>
 	<?php self::loadLib('jquery.history.js'); ?>
 	<?php self::loadLib('jquery.form.js'); ?>
-	<?php self::loadJs('core.js'); ?>
+	<?php self::loadJs('admin.js'); ?>
 </head>
 <body>
 	<div id='body_wrapper'>
@@ -22,7 +22,7 @@
 		<?php if(Session::isLoggedIn()) { ?>
 
 			<p>You are logged in <a href='user'><?php echo Session::username(); ?></a>.</p>
-			<p><a href='logout'>Logout</a></p>
+			<p><a href='admin/logout'>Logout</a></p>
 
 		<?php } else { ?>
 

@@ -47,7 +47,7 @@ class AdminController extends ViewController {
 	function usersAction() {
 
 		if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
-			self::badUrl();
+			self::errorAction();
 			return;
 		}
 
@@ -63,7 +63,7 @@ class AdminController extends ViewController {
 	function requestsAction() {
 
 		if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
-			self::badUrl();
+			self::errorAction();
 			return;
 		}
 
@@ -78,7 +78,7 @@ class AdminController extends ViewController {
 	function visitorsAction() {
 
 		if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
-			self::badUrl();
+			self::errorAction();
 			return;
 		}
 
@@ -93,7 +93,7 @@ class AdminController extends ViewController {
 	function commentsAction() {
 
 		if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
-			self::badUrl();
+			self::errorAction();
 			return;
 		}
 

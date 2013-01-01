@@ -9,7 +9,7 @@ class CommentController extends ViewController {
 	const FORM_ID = 'comment_form';
 	
 	public function defaultAction() {
-		self::badUrl();
+		self::errorAction();
 	}
 
 	public function addAction() {
