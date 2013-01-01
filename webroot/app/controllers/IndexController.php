@@ -13,15 +13,8 @@ class IndexController {
 			"home" => array("controller" => "HomeController"),
 			"auth" => array("controller" => "AuthController"),
 			"user" => array("controller" => "UserController"),
-			"login" => array("controller" => "HomeController", "action" => "loginAction"),
-			"logout" => array("controller" => "HomeController", "action" => "logoutAction"),
-			"signup" => array("controller" => "HomeController", "action" => "signupAction"),
 			"admin" => array("controller" => "AdminController"),
 			"comment" => array("controller" => "CommentController"),
-			"about" => array("controller" => "HomeController", "action" => "aboutAction"),
-			"new" => array("controller" => "HomeController", "action" => "newhomeAction"),
-			"sample" => array("controller" => "HomeController", "action" => "sampleAction"),
-			"error" => array("controller" => "HomeController", "action" => "badUrl")
 		);
 
 		if(isset($_GET['q']) && !empty($_GET['q'])) {

@@ -3,9 +3,7 @@
 class ViewController {
 
 	public function defaultAction() {
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "home.phtml");
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		badUrl();
 	}
 
 	public function badUrl() {

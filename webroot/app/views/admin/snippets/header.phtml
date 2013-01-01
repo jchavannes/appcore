@@ -7,7 +7,7 @@
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	
-	<?php self::loadCss('style.css'); ?>	
+	<?php self::loadCss('admin.css'); ?>	
 	<?php self::loadLib('jquery.min.js'); ?>
 	<?php self::loadLib('jquery-ui.min.js'); ?>
 	<?php self::loadLib('jquery.history.js'); ?>
@@ -26,8 +26,8 @@
 
 		<?php } else { ?>
 
-			<p><a href='login'>Login</a></p>
-			<p><a href='signup'>New user</a></p>
+			<p><a href='admin/login'>Login</a></p>
+			<p><a href='admin/signup'>New user</a></p>
 			
 		<?php } ?>
 		</div>
@@ -39,13 +39,10 @@
 				<?php $page = IndexController::getPageArg(); ?>
 				<ul>
 					<li class='home<?php if($page[0] == 'home') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>'><span></span>Home</a></li>
-					<li class='paperclip<?php if($page[0] == 'about') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>about'><span></span>About</a></li>
-					<?php if(Session::isLoggedIn()) { ?>
-						<li class='star<?php if($page[0] == 'sample') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>sample'><span></span>Sample</a></li>
-					<?php } ?>
+					<li class='paperclip<?php if($page[0] == 'admin' && isset($page[1]) && $page[1] == 'about') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>admin/about'><span></span>About</a></li>
 
 					<?php if(Session::checkPermission(Permissions::SUPER_ADMIN)) { ?>
-					<li class='admin<?php if($page[0] == 'admin' && !isset($page[1])) {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>admin'><span></span>Admin</a>
+					<li class='admin<?php if($page[0] == 'admin' && empty($page[1])) {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>admin'><span></span>Admin</a>
 						<?php if($page[0] == 'admin') { ?>
 						<ul>
 							<li<?php if($page[0] == 'admin' && isset($page[1]) && $page[1] == 'users') {echo " class='sel'";} ?>><a href='admin/users'>- Users</a></li>

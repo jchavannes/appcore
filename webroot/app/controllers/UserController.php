@@ -26,13 +26,13 @@ class UserController extends ViewController {
 		}
 
 
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
 		if($user_info === false) {
-			include(ROOT_DIR . VIEW_DIR . "user" . DIRECTORY_SEPARATOR . "notFound.phtml");
+			include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "user" . DIRECTORY_SEPARATOR . "notFound.phtml");
 		} else {
-			include(ROOT_DIR . VIEW_DIR . "user" . DIRECTORY_SEPARATOR . "view.phtml");
+			include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "user" . DIRECTORY_SEPARATOR . "view.phtml");
 		}
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
 	}
 
 	public function defaultAction() {
@@ -54,13 +54,13 @@ class UserController extends ViewController {
 			$user_info = $UserTbl->getUserInfo($_SESSION[SESSION::USERNAME]);
 		}
 
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
 		if($user_info === false) {
-			include(ROOT_DIR . VIEW_DIR . "user" . DIRECTORY_SEPARATOR . "notFound.phtml");
+			include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "user" . DIRECTORY_SEPARATOR . "notFound.phtml");
 		} else {
-			include(ROOT_DIR . VIEW_DIR . "user" . DIRECTORY_SEPARATOR . "edit.phtml");	
+			include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "user" . DIRECTORY_SEPARATOR . "edit.phtml");
 		}
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
 
 	}
 
