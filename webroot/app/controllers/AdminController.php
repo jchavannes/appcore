@@ -4,18 +4,18 @@ class AdminController extends ViewController {
 	
 	function defaultAction() {
 
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "index.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "index.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 	}
 
     public function signupAction() {
 
         if(SESSION::isLoggedIn()) {parent::Redirect();}
 
-        include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-        include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "signup.phtml");
-        include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
+        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "signup.phtml");
+        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 
     }
 
@@ -23,9 +23,9 @@ class AdminController extends ViewController {
 
         if(SESSION::isLoggedIn()) {parent::Redirect();}
 
-        include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-        include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "login.phtml");
-        include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
+        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "login.phtml");
+        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 
     }
 
@@ -38,9 +38,9 @@ class AdminController extends ViewController {
 
 	public function aboutAction() {
 
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "about.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "about.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 
 	}
 	
@@ -54,9 +54,9 @@ class AdminController extends ViewController {
 		$UserTbl = new UserTbl();
 		$userList = $UserTbl->getAllUsers();
 
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "users.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "users.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 
 	}
 	
@@ -70,9 +70,9 @@ class AdminController extends ViewController {
 		$HttpRequestTbl = new HttpRequestTbl();
 		$requests = $HttpRequestTbl->getPageCounts();
 
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "requests.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "requests.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 	}
 	
 	function visitorsAction() {
@@ -85,9 +85,9 @@ class AdminController extends ViewController {
 		$SessionTbl = new SessionTbl();
 		$visits = $SessionTbl->getVisits();
 
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "visitors.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "visitors.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 	}
 	
 	function commentsAction() {
@@ -100,17 +100,17 @@ class AdminController extends ViewController {
 		$CommentTbl = new CommentTbl();
 		$commentList = $CommentTbl->getAllComments('sample_page');
 		
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "comments.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "comments.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 
 	}
 	
 	function noAccessAction() {
 		
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "noAccess.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DIRECTORY_SEPARATOR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "noAccess.phtml");
+		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 
 	}
 

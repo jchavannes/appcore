@@ -6,9 +6,9 @@ class HomeController extends ViewController {
 	const ABOUT_COMMENT_ID = 'about_page';
 
 	public function defaultAction() {
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DS . "header.phtml");
 		include(ROOT_DIR . VIEW_DIR . "home.phtml");
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DS . "footer.phtml");
 	}
 
 }

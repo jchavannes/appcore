@@ -8,9 +8,9 @@ class ViewController {
 
 	public function errorAction() {
 		header('HTTP/1.0 404 Not Found');
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "header.phtml");
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DS . "header.phtml");
 		include(ROOT_DIR . VIEW_DIR . "404.phtml");
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DIRECTORY_SEPARATOR . "footer.phtml");
+		include(ROOT_DIR . VIEW_DIR . "snippets" . DS . "footer.phtml");
 	}
 
 	protected function redirect($url = "") {
