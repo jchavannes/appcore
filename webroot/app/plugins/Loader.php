@@ -52,7 +52,24 @@ class Loader {
 			}
 		}
 
-		call_user_func(array($route['controller'], $route['action']));
+		try {
+			ob_start();
+			call_user_func(array($route['controller'], $route['action']));
+			$output = ob_get_contents();
+			ob_end_clean();
+			echo $output;
+		}
+		catch(Exception $e) {
+			if (ob_get_status()) {
+				ob_end_clean();
+			}
+			echo "<h1>Caught Error</h1>";
+			echo "<h2>File: " . $e->getFile() . "<br/>Line: " . $e->getLine() . "</h2>";
+			echo "<h3>" . $e->getMessage() . "</h3>";
+			echo "<pre style='background:#d5d5d5; border:2px solid #888; padding:5px;'>";
+			var_dump($e);
+			echo "</pre>";
+		}
 
 	}
 
