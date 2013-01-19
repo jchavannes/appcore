@@ -95,12 +95,13 @@ class MysqlTbl {
 	protected function getQueryStatement($query, $opts = false) {
 		$stmt = $this->DB->prepare($query);
 		if($opts != false && isset($opts[0])) {
-			$eval_code = "'";
+			$types = "";
+			$values = array();
 			for($i = 0; isset($opts[$i]); $i++) {
-				$eval_code = 's' . $eval_code . ', $opts[' . $i . ']';
+				$types .= "s";
+				$values[] = $opts[$i];
 			}
-			$eval_code = '$stmt->bind_param(\'' . $eval_code . ');';
-			eval($eval_code);
+			call_user_func_array(array($stmt, 'bind_param'), array_merge(array($types), $values));
 		}
 		return $stmt;
 	}

@@ -36,7 +36,7 @@
 
 			<h1>Site</h1>
 			<div class='sidebar'>
-				<?php $page = IndexController::getPageArg(); ?>
+				<?php $page = Loader::getPageArg(); ?>
 				<ul>
 					<li class='home<?php if($page[0] == 'home') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>'><span></span>Home</a></li>
 					<li class='paperclip<?php if($page[0] == 'admin' && isset($page[1]) && $page[1] == 'about') {echo " sel";} ?>'><a href='<?php echo WEBROOT; ?>admin/about'><span></span>About</a></li>

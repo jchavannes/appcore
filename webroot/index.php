@@ -41,7 +41,7 @@ $class_paths = array(
 );
 foreach($class_paths as $path) {includeFile(ROOT_DIR . $path);}
 
-IndexController::load();
+Loader::load();
 
 function includeFile($filename) {
 	if(file_exists($filename)) {

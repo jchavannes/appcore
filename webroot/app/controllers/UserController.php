@@ -13,7 +13,7 @@ class UserController extends ViewController {
 	
 	public function viewAction() {
 
-		$page = IndexController::getPageArg();
+		$page = Loader::getPageArg();
 
 		$UserTbl = new UserTbl();
 
@@ -41,14 +41,14 @@ class UserController extends ViewController {
 
 	public function editAction() {
 
-		$page = IndexController::getPageArg();
+		$page = Loader::getPageArg();
 
 		$UserTbl = new UserTbl();
 		$user_info = false;
 
 		if(isset($page[2]) && !empty($page[2])) {
-			if(Session::checkPermission(Permissions::SUPER_ADMIN) || IndexController::getPageArg(2) == $_SESSION[SESSION::USERNAME]) {
-				$user_info = $UserTbl->getUserInfo(IndexController::getPageArg(2));
+			if(Session::checkPermission(Permissions::SUPER_ADMIN) || Loader::getPageArg(2) == $_SESSION[SESSION::USERNAME]) {
+				$user_info = $UserTbl->getUserInfo(Loader::getPageArg(2));
 			}
 		} else {
 			$user_info = $UserTbl->getUserInfo($_SESSION[SESSION::USERNAME]);

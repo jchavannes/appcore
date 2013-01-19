@@ -1,6 +1,6 @@
 <?php
 
-class IndexController {
+class Loader {
 
 	public function load() {
 
@@ -46,7 +46,7 @@ class IndexController {
 		if (!empty($request['parts'][1])) {
 			// Request specifies an action, set to error until we find one
 			$route['action'] = "errorAction";
-			$action = $request['parts'][1]."Action";
+			$action = preg_replace('/[^a-z]/i', '', $request['parts'][1]) . "Action";
 			if (method_exists($route['controller'], $action)) {
 				$route['action'] = $action;
 			}
