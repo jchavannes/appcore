@@ -101,7 +101,7 @@ class MysqlTbl {
 				$types .= "s";
 				$values[] = $opts[$i];
 			}
-			call_user_func_array(array($stmt, 'bind_param'), array_merge(array($types), $values));
+			call_user_func_array(array($stmt, 'bind_param'), self::refVals(array_merge(array($types), $values)));
 		}
 		return $stmt;
 	}
@@ -122,6 +122,16 @@ class MysqlTbl {
 			" LIMIT ?";
 		$opts = array($limit);
 		return $this->getResults($query, $opts);
+	}
+
+	// Apparently bind_params requires references
+	static public function refVals($arr) {
+		if (strnatcmp(phpversion(),'5.3') >= 0) {
+			$refs = array();
+			foreach($arr as $key => $value) $refs[$key] = &$arr[$key];
+			return $refs;
+		}
+		return $arr;
 	}
 
 }

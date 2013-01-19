@@ -11,7 +11,7 @@ class AdminController extends ViewController {
 
     public function signupAction() {
 
-        if(SESSION::isLoggedIn()) {parent::Redirect();}
+        if(SESSION::isLoggedIn()) {parent::Redirect('admin/');}
 
         include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
         include(ROOT_DIR . VIEW_DIR . "admin" . DS . "signup.phtml");
@@ -21,7 +21,7 @@ class AdminController extends ViewController {
 
     public function loginAction() {
 
-        if(SESSION::isLoggedIn()) {parent::Redirect();}
+        if(SESSION::isLoggedIn()) {parent::Redirect('admin/');}
 
         include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
         include(ROOT_DIR . VIEW_DIR . "admin" . DS . "login.phtml");
