@@ -23,4 +23,10 @@ class Error {
 
 	}
 
+    static public function dump($var) {
+        echo "<pre style='background:#d5d5d5; border:2px solid #888; padding:5px;'>";
+        var_dump($var);
+        echo "</pre>";
+    }
+
 }

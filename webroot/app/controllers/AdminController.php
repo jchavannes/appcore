@@ -1,47 +1,28 @@
 <?php
 
-class AdminController extends ViewController {
+class AdminController extends AdminViewController {
 	
 	function defaultAction() {
-
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "index.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
+        $this->loadLayout("index.phtml");
 	}
 
     public function signupAction() {
-
         if(SESSION::isLoggedIn()) {parent::Redirect('admin/');}
-
-        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
-        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "signup.phtml");
-        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
-
+        $this->loadLayout("signup.phtml");
     }
 
     public function loginAction() {
-
         if(SESSION::isLoggedIn()) {parent::Redirect('admin/');}
-
-        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
-        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "login.phtml");
-        include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
-
+        $this->loadLayout("login.phtml");
     }
 
     public function logoutAction() {
-
         Session::logout();
         parent::Redirect('admin/');
-
     }
 
 	public function aboutAction() {
-
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "about.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
-
+        $this->loadLayout("about.phtml");
 	}
 	
 	function usersAction() {
@@ -52,11 +33,8 @@ class AdminController extends ViewController {
 		}
 
 		$UserTbl = new UserTbl();
-		$userList = $UserTbl->getAllUsers();
-
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "users.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
+		$this->view->users = $UserTbl->getAllUsers();
+        $this->loadLayout("users.phtml");
 
 	}
 	
@@ -68,11 +46,9 @@ class AdminController extends ViewController {
 		}
 
 		$HttpRequestTbl = new HttpRequestTbl();
-		$requests = $HttpRequestTbl->getPageCounts();
+		$this->view->requests = $HttpRequestTbl->getPageCounts();
+        $this->loadLayout("requests.phtml");
 
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "requests.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 	}
 	
 	function visitorsAction() {
@@ -83,11 +59,9 @@ class AdminController extends ViewController {
 		}
 
 		$SessionTbl = new SessionTbl();
-		$visits = $SessionTbl->getVisits();
+		$this->view->visits = $SessionTbl->getVisits();
+        $this->loadLayout("visitors.phtml");
 
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "visitors.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 	}
 	
 	function commentsAction() {
@@ -98,20 +72,13 @@ class AdminController extends ViewController {
 		}
 
 		$CommentTbl = new CommentTbl();
-		$commentList = $CommentTbl->getAllComments('sample_page');
-		
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "comments.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
+		$this->view->comments = $CommentTbl->getAllComments('sample_page');
+        $this->loadLayout("comments.phtml");
 
 	}
 	
 	function noAccessAction() {
-		
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "noAccess.phtml");
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
-
+        $this->loadLayout("noAccess.phtml");
 	}
 
 }

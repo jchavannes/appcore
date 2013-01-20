@@ -11,7 +11,7 @@ class Session {
 	const PERMISSIONS = 'permissions';
 	const FORM_VERIFIERS = 'form_verifiers';
 
-	public function load() {
+	static public function load() {
 
 		session_start();
 		$SessionTbl = new SessionTbl();
@@ -51,7 +51,7 @@ class Session {
 		HttpRequestTbl::logHttpRequest();
 	}
 
-	public function login($fields) {
+    static public function login($fields) {
 		$user = new UserTbl();
 		$user_data = $user->login($fields);
 		if($user_data[UserTbl::ID]) {
@@ -61,7 +61,7 @@ class Session {
 		return false;
 	}
 
-	public function setUser($user_data) {
+    static public function setUser($user_data) {
 		$SessionTbl = new SessionTbl();
 		$SessionTbl->setUser($user_data[UserTbl::ID]);
 		$_SESSION[Session::LOGGED_IN] = true;
@@ -70,16 +70,16 @@ class Session {
 		$_SESSION[Session::PERMISSIONS] = $user_data[UserTbl::PERMISSIONS];
 	}
 
-	public function logout() {
+	static public function logout() {
 		session_unset();
 		session_regenerate_id();		
 	}
 
-	public function isLoggedIn() {
+	static public function isLoggedIn() {
 		return (isset($_SESSION[Session::LOGGED_IN]) && $_SESSION[Session::LOGGED_IN]);
 	}
 
-	public function username() {
+	static public function username() {
 		if(isset($_SESSION[Session::USERNAME]) && !empty($_SESSION[Session::USERNAME])) {
 			return $_SESSION[Session::USERNAME];
 		} else {
@@ -87,7 +87,7 @@ class Session {
 		}
 	}
 
-	public function checkPermission($permission) {
+	static public function checkPermission($permission) {
 		if(!isset($_SESSION['permissions']) || $_SESSION['permissions'] <= 0 || !Session::isLoggedIn()) {
 			return false;
 		}
@@ -96,7 +96,7 @@ class Session {
 		return in_array($permission, $permissions);
 	}
 
-	public function getPermissions($num) {
+    static public function getPermissions($num) {
 		$permissions = array();
 		while($num > 0) {
 			$max = 1;

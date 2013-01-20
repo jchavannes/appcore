@@ -1,6 +1,6 @@
 <?php
 
-class UserController extends ViewController {
+class UserController extends AdminViewController {
 
 	const USER_ID = 'user_id';
 	const USER_USERNAME = 'username';
@@ -19,20 +19,19 @@ class UserController extends ViewController {
 
 		if(isset($page[2]) && !empty($page[2])) {
 			// Someone else's profile
-			if($user_info = $UserTbl->getUserInfo($page[2])) {$user_info['me'] = false;}			
+			if($user_info = $UserTbl->getUserInfo($page[2])) {$user_info['me'] = false;}
 		} else {
 			// Your profile
-			if($user_info = $UserTbl->getUserInfo()) {$user_info['me'] = true;}			
+			if($user_info = $UserTbl->getUserInfo()) {$user_info['me'] = true;}
 		}
 
 
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
 		if($user_info === false) {
-			include(ROOT_DIR . VIEW_DIR . "admin" . DS . "user" . DS . "notFound.phtml");
+            $this->loadLayout("user" . DS . "notFound.phtml");
 		} else {
-			include(ROOT_DIR . VIEW_DIR . "admin" . DS . "user" . DS . "view.phtml");
+            $this->view->userinfo = $user_info;
+            $this->loadLayout("user" . DS . "view.phtml");
 		}
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 	}
 
 	public function defaultAction() {
@@ -54,13 +53,12 @@ class UserController extends ViewController {
 			$user_info = $UserTbl->getUserInfo($_SESSION[SESSION::USERNAME]);
 		}
 
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "header.phtml");
 		if($user_info === false) {
-			include(ROOT_DIR . VIEW_DIR . "admin" . DS . "user" . DS . "notFound.phtml");
+            $this->loadLayout("user" . DS . "notFound.phtml");
 		} else {
-			include(ROOT_DIR . VIEW_DIR . "admin" . DS . "user" . DS . "edit.phtml");
+            $this->view->userinfo = $user_info;
+            $this->loadLayout("user" . DS . "edit.phtml");
 		}
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "footer.phtml");
 
 	}
 

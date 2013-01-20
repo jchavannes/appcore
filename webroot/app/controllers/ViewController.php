@@ -2,21 +2,37 @@
 
 class ViewController {
 
+    public $view;
+
+    public function __construct() {
+        $this->view = new stdClass();
+    }
+
 	public function defaultAction() {
 		self::errorAction();
 	}
 
-	public function errorAction() {
-		header('HTTP/1.0 404 Not Found');
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DS . "header.phtml");
-		include(ROOT_DIR . VIEW_DIR . "404.phtml");
-		include(ROOT_DIR . VIEW_DIR . "snippets" . DS . "footer.phtml");
-	}
+    public function loadLayout($page) {
+        $this->loadFile(ROOT_DIR . VIEW_DIR . "snippets" . DS . "header.phtml");
+        $this->loadFile(ROOT_DIR . VIEW_DIR . $page);
+        $this->loadFile(ROOT_DIR . VIEW_DIR . "snippets" . DS . "footer.phtml");
+    }
+
+    public function loadFile($file) {
+        if(file_exists($file)) {
+            require($file);
+        }
+    }
+
+    public function errorAction() {
+        header('HTTP/1.0 404 Not Found');
+        $this->loadLayout("404.phtml");
+    }
 
 	protected function redirect($url = "") {
 		$url = WEBROOT . $url;
 		header("Location: " . $url);
-		die();
+		exit(0);
 	}
 
 	public function ajaxSuccess($opts = array()) {

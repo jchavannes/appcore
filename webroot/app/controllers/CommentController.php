@@ -73,7 +73,7 @@ class CommentController extends ViewController {
 		
 	}
 
-	public function showComments($id) {
+	static public function showComments($id) {
 		$comments = array(
 			'id' => $id,
 			'table' => new CommentTbl(),

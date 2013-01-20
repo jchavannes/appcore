@@ -1,3 +1,4 @@
+<?php $users = $this->view->users; ?>
 <h3>Users</h3>
 
 <sheet>
@@ -9,7 +10,7 @@
 		<cell>Permissions</cell>
 	</row>
 
-	<?php foreach($userList as $user) { ?>
+	<?php foreach($users as $user) { ?>
 	<row>
 		<cell><?php echo $user[UserTbl::ID]; ?></cell>
 		<cell><a href='user/view/<?php echo $user[UserTbl::USERNAME]; ?>'><?php echo $user[UserTbl::USERNAME]; ?></a></cell>

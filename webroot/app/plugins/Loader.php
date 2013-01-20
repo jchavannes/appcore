@@ -2,7 +2,7 @@
 
 class Loader {
 
-	public function load() {
+	static public function load() {
 
 		Session::load();
 
@@ -54,10 +54,9 @@ class Loader {
 
 		try {
 			ob_start();
-			call_user_func(array($route['controller'], $route['action']));
-			$output = ob_get_contents();
-			ob_end_clean();
-			echo $output;
+            $controller = new $route['controller'];
+            $controller->$route['action']();
+			ob_end_flush();
 		}
 		catch(Exception $e) {
 			if (ob_get_status()) {
@@ -66,14 +65,12 @@ class Loader {
 			echo "<h1>Caught Error</h1>";
 			echo "<h2>File: " . $e->getFile() . "<br/>Line: " . $e->getLine() . "</h2>";
 			echo "<h3>" . $e->getMessage() . "</h3>";
-			echo "<pre style='background:#d5d5d5; border:2px solid #888; padding:5px;'>";
-			var_dump($e);
-			echo "</pre>";
+			Error::dump($e);
 		}
 
 	}
 
-	public function getPageArg($level = false) {
+	static public function getPageArg($level = false) {
 		if(!isset($_GET['q']) || empty($_GET['q'])) {
 			if($level !== false) {
 				if($level == 0) {return "home";}
