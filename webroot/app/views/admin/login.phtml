@@ -1,9 +1,6 @@
 <h2>Login!</h2>
 <form action='auth/login' method='post' id='<?php echo AuthController::LOGIN_FORM_ID; ?>'>
-	<?php
-		$FormHelper = new FormHelper(FormHelper::LOGIN_FORM);
-		$FormHelper->getVerifierField();
-	?>
+	<?php Forms::getVerifierField(); ?>
 	<label>Username</label><input type='text' name='<?php echo AuthController::LOGIN_USERNAME; ?>' value='' /><br/>
 	<label>Password</label><input type='password' name='<?php echo AuthController::LOGIN_PASSWORD; ?>' value='' /><br/>
 	<label></label><input type='submit' value='Login!' />

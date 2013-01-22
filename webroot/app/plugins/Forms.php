@@ -1,28 +1,23 @@
 <?php
 
-class FormHelper {
+class Forms {
 
-	const SIGNUP_FORM 	= 'signup_form_verifier';
-	const LOGIN_FORM 	= 'login_form_verifier';
-	const COMMENT_FORM 	= 'comment_form_verifier';
+    const FORM_CSRF_FIELD = 'csrf_token';
 
-	private $verifier = array();
-
-	public function __construct($id) {
-		if(!isset($_SESSION[Session::FORM_VERIFIERS])) {$_SESSION[Session::FORM_VERIFIERS] = array();}
-		if(!isset($_SESSION[Session::FORM_VERIFIERS][$id])) {
-			$_SESSION[Session::FORM_VERIFIERS][$id] = md5(uniqid());
-		}
-		$this->verifier['name'] = $id;
-		$this->verifier['val'] = $_SESSION[Session::FORM_VERIFIERS][$id];
+	public function __construct() {
+		if(!isset($_SESSION[Session::CSRF_TOKEN])) {
+            $_SESSION[Session::CSRF_TOKEN] = md5(session_id().time());
+        }
 	}
 
-	public function getVerifierField() {
-		echo "<input type='hidden' name='" . $this->verifier['name'] . "' value='" . $this->verifier['val'] . "' />";
+	static public function getVerifierField() {
+        new self();
+		echo "<input type='hidden' name='" . self::FORM_CSRF_FIELD . "' value='" . $_SESSION[Session::CSRF_TOKEN] . "' />";
 	}
 
-	public function checkVerifier() {
-		return (isset($_POST[$this->verifier['name']]) && $_POST[$this->verifier['name']] == $this->verifier['val']);
+	static public function checkVerifier() {
+        new self();
+		return isset($_POST[self::FORM_CSRF_FIELD]) && $_POST[self::FORM_CSRF_FIELD] == $_SESSION[Session::CSRF_TOKEN];
 	}
 
 }

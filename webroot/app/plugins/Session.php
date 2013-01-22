@@ -11,6 +11,8 @@ class Session {
 	const PERMISSIONS = 'permissions';
 	const FORM_VERIFIERS = 'form_verifiers';
 
+	const CSRF_TOKEN = 'csrf_token';
+
 	static public function load() {
 
 		session_start();

@@ -62,7 +62,7 @@ var Comments = new (function() {
 		jQuery.ajax({
 			url: 'comment/delete',
 			type: 'POST',
-			data: {id: id, test: "test", comment_form_verifier: jQuery('input[name="comment_form_verifier"]').val()},
+			data: {id: id, test: "test", csrf_token: jQuery('input[name="csrf_token"]').val()},
 			success: function(data) {
 				Util.serverResponse(data, {
 					successAction: function() {

@@ -6,6 +6,14 @@ class Loader {
 
 		Session::load();
 
+        // CSRF Check
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' || !empty($_POST)) {
+            if (!Forms::checkVerifier()) {
+                ViewController::ajaxAuthError();
+                return;
+            }
+        }
+
 		// Used for creating short urls
 		$reroutes = array(
 			"test" => array("admin", "comments"),

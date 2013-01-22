@@ -25,35 +25,24 @@ class CommentController extends ViewController {
 			return;		
 		}
 
-		$FormHelper = new FormHelper(FormHelper::COMMENT_FORM);
-		if($FormHelper->checkVerifier()) {
-			$query_opts = array(
-				CommentTbl::USER_ID => isset($_SESSION[Session::USER_ID]) ? $_SESSION[Session::USER_ID] : "0",
-				CommentTbl::ITEM => $_POST[self::COMMENT_ITEM],
-				CommentTbl::PARENT_ID => 0,
-				CommentTbl::TITLE => $_POST[self::COMMENT_TITLE],
-				CommentTbl::MESSAGE => $_POST[self::COMMENT_MESSAGE],
-				CommentTbl::DATE => time()
-			);
+		$query_opts = array(
+			CommentTbl::USER_ID => isset($_SESSION[Session::USER_ID]) ? $_SESSION[Session::USER_ID] : "0",
+			CommentTbl::ITEM => $_POST[self::COMMENT_ITEM],
+			CommentTbl::PARENT_ID => 0,
+			CommentTbl::TITLE => $_POST[self::COMMENT_TITLE],
+			CommentTbl::MESSAGE => $_POST[self::COMMENT_MESSAGE],
+			CommentTbl::DATE => time()
+		);
 
-			$CommentTbl = new CommentTbl();
-			if($CommentTbl->addComment($query_opts)) {
-				self::ajaxSuccess();
-				return;
-			}
+		$CommentTbl = new CommentTbl();
+		if($CommentTbl->addComment($query_opts)) {
+			self::ajaxSuccess();
+			return;
 		}
-		self::ajaxAuthError();
 		
 	}
 
 	public function deleteAction() {
-
-		$FormHelper = new FormHelper(FormHelper::COMMENT_FORM);
-		
-		if(!$FormHelper->checkVerifier()) {
-			self::ajaxAuthError();
-			return;
-		}
 
 		if(isset($_POST['id']) && $deleteId = $_POST['id']) {
 			$CommentTbl = new CommentTbl();
@@ -76,8 +65,7 @@ class CommentController extends ViewController {
 	static public function showComments($id) {
 		$comments = array(
 			'id' => $id,
-			'table' => new CommentTbl(),
-			'helper' => new FormHelper(FormHelper::COMMENT_FORM)
+			'table' => new CommentTbl()
 		);
 		$comments['data'] = $comments['table']->getAllComments($id);
 		require(VIEW_DIR . "admin" . DS . "snippets" . DS . "comments.phtml");

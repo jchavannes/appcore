@@ -23,7 +23,7 @@
 
 <form action='comment/add' method='post' id='<?php echo CommentController::FORM_ID; ?>'>
 	<h3>Add comment</h3>
-	<?php $comments['helper']->getVerifierField(); ?>
+	<?php Forms::getVerifierField(); ?>
 	<input type='hidden' name='<?php echo CommentController::COMMENT_ITEM; ?>' value='<?php echo $comments['id']; ?>' />
 	<label for='<?php echo CommentController::COMMENT_TITLE; ?>'>Title</label>
 	<input type='text' name='<?php echo CommentController::COMMENT_TITLE; ?>' /><br/>
