@@ -27,8 +27,8 @@ class Loader {
 
 		// Get request query info
 		$request = array("url" => "", "parts" => array());
-		if(isset($_GET['q']) && !empty($_GET['q'])) {
-			$request['url'] = $_GET['q'];
+		if(isset($_GET['rq']) && !empty($_GET['rq'])) {
+			$request['url'] = $_GET['rq'];
 			$request['parts'] = explode("/", $request['url']);
 		} else {
 			// If no request, this is the homepage
@@ -76,14 +76,14 @@ class Loader {
 	}
 
 	static public function getPageArg($level = false) {
-		if(!isset($_GET['q']) || empty($_GET['q'])) {
+		if(!isset($_GET['rq']) || empty($_GET['rq'])) {
 			if($level !== false) {
 				if($level == 0) {return "home";}
 				else {return false;}
 			}
 			return array("home");
 		}
-		$args = explode("/", $_GET['q']);
+		$args = explode("/", $_GET['rq']);
 		if($level === false) {return $args;}
 		if(!isset($args[$level])) {return false;}
 		return $args[$level];
