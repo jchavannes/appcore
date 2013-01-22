@@ -62,10 +62,7 @@ class Loader {
 			if (ob_get_status()) {
 				ob_end_clean();
 			}
-			echo "<h1>Caught Error</h1>";
-			echo "<h2>File: " . $e->getFile() . "<br/>Line: " . $e->getLine() . "</h2>";
-			echo "<h3>" . $e->getMessage() . "</h3>";
-			Error::dump($e);
+			Error::show($e);
 		}
 
 	}

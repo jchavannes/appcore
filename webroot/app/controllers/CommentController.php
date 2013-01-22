@@ -80,7 +80,7 @@ class CommentController extends ViewController {
 			'helper' => new FormHelper(FormHelper::COMMENT_FORM)
 		);
 		$comments['data'] = $comments['table']->getAllComments($id);
-		include(ROOT_DIR . VIEW_DIR . "admin" . DS . "snippets" . DS . "comments.phtml");
+		require(VIEW_DIR . "admin" . DS . "snippets" . DS . "comments.phtml");
 	}
 
 }

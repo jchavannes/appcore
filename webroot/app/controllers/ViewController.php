@@ -13,14 +13,18 @@ class ViewController {
 	}
 
     public function loadLayout($page) {
-        $this->loadFile(ROOT_DIR . VIEW_DIR . "snippets" . DS . "header.phtml");
-        $this->loadFile(ROOT_DIR . VIEW_DIR . $page);
-        $this->loadFile(ROOT_DIR . VIEW_DIR . "snippets" . DS . "footer.phtml");
+        $this->loadFile("snippets" . DS . "header.phtml");
+        $this->loadFile($page);
+        $this->loadFile("snippets" . DS . "footer.phtml");
     }
 
     public function loadFile($file) {
+    	$file = VIEW_DIR . $file;
         if(file_exists($file)) {
             require($file);
+        }
+        else {
+        	throw new Exception("Unable to find file: $file");
         }
     }
 

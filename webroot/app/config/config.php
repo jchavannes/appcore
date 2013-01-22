@@ -7,7 +7,7 @@ $config = array(
 	"MYSQL_DATABASE" => "appcore"
 );
 
-$filename = ROOT_DIR . CONFIG_DIR . "local.config.php";
+$filename = CONFIG_DIR . "local.config.php";
 
 if(file_exists($filename)) {
 

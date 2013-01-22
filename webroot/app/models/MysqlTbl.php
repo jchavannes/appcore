@@ -56,6 +56,12 @@ class MysqlTbl {
 		return $results;
 	}
 
+    public function getItem($query, $opts = false) {
+        $result = $this->getRow($query, $opts);
+        $result = array_values($result);
+        return $result[0];
+    }
+
 	public function query($query, $opts) {
 		$stmt = $this->getQueryStatement($query, $opts);
 		$stmt->execute();
@@ -94,6 +100,9 @@ class MysqlTbl {
 
 	protected function getQueryStatement($query, $opts = false) {
 		$stmt = $this->DB->prepare($query);
+        if (!is_object($stmt)) {
+            throw new Exception("Error perparing query.");
+        }
 		if($opts != false && isset($opts[0])) {
 			$types = "";
 			$values = array();
