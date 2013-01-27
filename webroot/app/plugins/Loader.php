@@ -27,23 +27,23 @@ class Loader {
 
 		// Get request query info
 		$request = array("url" => "", "parts" => array());
-		if(isset($_GET['rq']) && !empty($_GET['rq'])) {
-			$request['url'] = $_GET['rq'];
-			$request['parts'] = explode("/", $request['url']);
+		$request['url'] = self::getRequest();
+		if(!empty($request['url'])) {
+			$request['parts'] = self::getPageArg();
 		} else {
 			// If no request, this is the homepage
 			$route['action'] = "defaultAction";
 		}
 
 		// Check for potential re-route
-		if(isset($request['parts'][0]) && isset($reroutes[$request['parts'][0]])) {
-			$request['parts'][1] = $reroutes[$request['parts'][0]][1];
-			$request['parts'][0] = $reroutes[$request['parts'][0]][0];
+		if(isset($request['parts'][1]) && isset($reroutes[$request['parts'][1]])) {
+			$request['parts'][2] = $reroutes[$request['parts'][1]][1];
+			$request['parts'][1] = $reroutes[$request['parts'][1]][0];
 		}
 
 		// Find correct controller
-		if (!empty($request['parts'][0])) {
-			$controller = ucfirst($request['parts'][0])."Controller";
+		if (!empty($request['parts'][1])) {
+			$controller = ucfirst($request['parts'][1])."Controller";
 			if (class_exists($controller)) {
 				$route['controller'] = $controller;
 				// We found a controller, set default action
@@ -51,10 +51,10 @@ class Loader {
 			}
 		}
 
-		if (!empty($request['parts'][1])) {
+		if (!empty($request['parts'][2])) {
 			// Request specifies an action, set to error until we find one
 			$route['action'] = "errorAction";
-			$action = preg_replace('/[^a-z]/i', '', $request['parts'][1]) . "Action";
+			$action = preg_replace('/[^a-z]/i', '', $request['parts'][2]) . "Action";
 			if (method_exists($route['controller'], $action)) {
 				$route['action'] = $action;
 			}
@@ -70,23 +70,29 @@ class Loader {
 			if (ob_get_status()) {
 				ob_end_clean();
 			}
-			Error::show($e);
+            Error::show($e);
 		}
 
 	}
 
 	static public function getPageArg($level = false) {
-		if(!isset($_GET['rq']) || empty($_GET['rq'])) {
+		$request = self::getRequest();
+		if (empty($request)) {
 			if($level !== false) {
-				if($level == 0) {return "home";}
+				if($level == 1) {return "home";}
 				else {return false;}
 			}
 			return array("home");
 		}
-		$args = explode("/", $_GET['rq']);
-		if($level === false) {return $args;}
-		if(!isset($args[$level])) {return false;}
+		$args = array_merge(array(null), explode("/", $request));
+		if ($level === false) {return $args;}
+		if (!isset($args[$level]) || empty($args[$level])) {return false;}
 		return $args[$level];
+	}
+
+	static public function getRequest() {
+		$webpath = substr($_SERVER['SCRIPT_NAME'], 0, 0 - strlen("index.php"));
+		return substr($_SERVER['REQUEST_URI'], strlen($webpath));
 	}
 
 }
