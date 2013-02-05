@@ -2,23 +2,23 @@
 <h3>Comments</h3>
 
 <sheet>
-	<row class='title'>
-		<cell>ID</cell>
-		<cell>Username</cell>
-		<cell>Parent</cell>
-		<cell>Title</cell>
-		<cell>Content</cell>
-		<cell>Date</cell>
-	</row>
+    <row class='title'>
+        <cell>ID</cell>
+        <cell>Username</cell>
+        <cell>Parent</cell>
+        <cell>Title</cell>
+        <cell>Content</cell>
+        <cell>Date</cell>
+    </row>
 
-	<?php foreach($comments as $comment) { ?>
-	<row>
-		<cell><?php echo $comment[CommentTbl::ID]; ?></cell>
-		<cell><?php echo $comment[UserTbl::USERNAME]; ?></cell>
-		<cell><?php echo $comment[CommentTbl::PARENT_ID]; ?></cell>
-		<cell><?php echo $comment[CommentTbl::TITLE]; ?></cell>
-		<cell><?php echo $comment[CommentTbl::MESSAGE]; ?></cell>
-		<cell><?php echo date("[D] M j, Y - h:i a", $comment[CommentTbl::DATE]); ?></cell>
-	</row>
-	<?php } ?>	
+    <?php foreach($comments as $comment) { ?>
+    <row>
+        <cell><?php echo $comment[CommentTbl::ID]; ?></cell>
+        <cell><?php echo $comment[UserTbl::USERNAME]; ?></cell>
+        <cell><?php echo $comment[CommentTbl::PARENT_ID]; ?></cell>
+        <cell><?php echo $comment[CommentTbl::TITLE]; ?></cell>
+        <cell><?php echo $comment[CommentTbl::MESSAGE]; ?></cell>
+        <cell><?php echo date("[D] M j, Y - h:i a", $comment[CommentTbl::DATE]); ?></cell>
+    </row>
+    <?php } ?>    
 </sheet>

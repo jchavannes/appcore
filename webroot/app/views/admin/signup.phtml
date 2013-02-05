@@ -1,19 +1,19 @@
 <h2>Signup!</h2>
 
 <form action='auth/signup' method='post' id='<?php echo AuthController::SIGNUP_FORM_ID; ?>'>
-	<?php Forms::getVerifierField(); ?>
-	<label>Username</label><input type='text' name='<?php echo AuthController::SIGNUP_USERNAME; ?>' value='' /><br/>
-	<label>Password</label><input type='password' name='<?php echo AuthController::SIGNUP_PASSWORD; ?>' value='' /><br/>
-	<label>Verify Password</label><input type='password' name='<?php echo AuthController::SIGNUP_VERIFY_PASSWORD; ?>' value='' /><br/>
-	<label></label><input type='submit' value='Sign Up!' />
+    <?php Forms::getVerifierField(); ?>
+    <label>Username</label><input type='text' name='<?php echo AuthController::SIGNUP_USERNAME; ?>' value='' /><br/>
+    <label>Password</label><input type='password' name='<?php echo AuthController::SIGNUP_PASSWORD; ?>' value='' /><br/>
+    <label>Verify Password</label><input type='password' name='<?php echo AuthController::SIGNUP_VERIFY_PASSWORD; ?>' value='' /><br/>
+    <label></label><input type='submit' value='Sign Up!' />
 </form>
 
 <script type='text/javascript'>
-	jQuery(document).ready(function() {
-		var params = {
-			formId: '<?php echo AuthController::SIGNUP_FORM_ID; ?>',
-			submitMessage: "Creating account..."
-		};
-		var Signup = new Form(params);
-	});
+    jQuery(document).ready(function() {
+        var params = {
+            formId: '<?php echo AuthController::SIGNUP_FORM_ID; ?>',
+            submitMessage: "Creating account..."
+        };
+        var Signup = new Form(params);
+    });
 </script>

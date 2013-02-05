@@ -1,269 +1,269 @@
 html {
-	overflow-y: scroll;
+    overflow-y: scroll;
 }
 body {
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	background: #ddd;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    background: #ddd;
 }
 p, h1, h2, h3, h4, h5, h6 {
-	margin: 12px 0px;
+    margin: 12px 0px;
 }
 label {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	width: 110px;
-	margin: 12px 0px;
+    display: inline-block;
+    *display:inline;zoom:1;
+    vertical-align: top;
+    width: 110px;
+    margin: 12px 0px;
 }
 input, textarea {
-	padding: 5px 10px;
-	width: 220px;
-	border: 1px solid #bbb;
-	margin: 12px 5px 12px 0px;
-	border-radius: 4px;
+    padding: 5px 10px;
+    width: 220px;
+    border: 1px solid #bbb;
+    margin: 12px 5px 12px 0px;
+    border-radius: 4px;
 }
 textarea {
-	resize: vertical;
-	height: 50px;
-	max-height: 150px;
-	font-family: Helvetica, Arial, sans-serif;
+    resize: vertical;
+    height: 50px;
+    max-height: 150px;
+    font-family: Helvetica, Arial, sans-serif;
 }
 input[type=submit], input[type=button] {
-	margin-top: 20px;
-	width: 150px;
+    margin-top: 20px;
+    width: 150px;
 }
 input[type=submit]:hover, input[type=button]:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 input[type=button].action {
-	padding: 2px 5px;
-	font-size: 11px;
-	margin-top: 0px;
-	width: auto;
+    padding: 2px 5px;
+    font-size: 11px;
+    margin-top: 0px;
+    width: auto;
 }
 
 sheet {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	border: dashed #888;
-	border-width: 1px 0px 0px 1px;
+    display: inline-block;
+    *display:inline;zoom:1;
+    vertical-align: top;
+    border: dashed #888;
+    border-width: 1px 0px 0px 1px;
 }
 sheet row {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	font-size: 0;
+    display: inline-block;
+    *display:inline;zoom:1;
+    vertical-align: top;
+    font-size: 0;
 }
 sheet cell {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	padding: 2px 5px;
-	border: dashed #888;
-	border-width: 0px 1px 1px 0px;
-	font-size: 14px;
+    display: inline-block;
+    *display:inline;zoom:1;
+    vertical-align: top;
+    padding: 2px 5px;
+    border: dashed #888;
+    border-width: 0px 1px 1px 0px;
+    font-size: 14px;
 }
 sheet row.title cell {
-	font-weight: 700;
+    font-weight: 700;
 }
 .container {
-	width: 800px;
-	margin: 0px auto;
+    width: 800px;
+    margin: 0px auto;
 }
 .container .user_status {
-	text-align: right;
-	margin-bottom: 8px;
-	margin-right: 10px;
-	font-size: 12px;
+    text-align: right;
+    margin-bottom: 8px;
+    margin-right: 10px;
+    font-size: 12px;
 }
 .container .user_status p {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	margin: 0px 5px;
+    display: inline-block;
+    *display:inline;zoom:1;
+    vertical-align: top;
+    margin: 0px 5px;
 }
 .page {
-	width: 700px;
-	padding: ;
-	margin: 0px auto 0px;
-	background: #fff;
-	padding: 25px 50px 35px;
-	border-radius: 10px;
-	box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+    width: 700px;
+    padding: ;
+    margin: 0px auto 0px;
+    background: #fff;
+    padding: 25px 50px 35px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.3);
 }
 .page h1 {
-	margin: 0px;
-	font-size: 36px;
-	text-align: center;	
+    margin: 0px;
+    font-size: 36px;
+    text-align: center;    
 }
 .page .sidebar {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	width: 139px;
-	margin-right: 10px;
+    display: inline-block;
+    *display:inline;zoom:1;
+    vertical-align: top;
+    width: 139px;
+    margin-right: 10px;
 }
 .page .sidebar ul {
-	list-style: none;
-	padding: 0px 0px 10px;
-	margin: 12px -5px 10px;
+    list-style: none;
+    padding: 0px 0px 10px;
+    margin: 12px -5px 10px;
 }
 .page .sidebar li {
-	margin-right: 5px;
+    margin-right: 5px;
 }
 .page .sidebar li span {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	width: 15px;
-	height: 15px;
-	margin-right: 5px;
+    display: inline-block;
+    *display:inline;zoom:1;
+    vertical-align: top;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
 }
 .page .sidebar li.home span {
-	background: url(../img/icons.png) -15px 0px;
+    background: url(../img/icons.png) -15px 0px;
 }
 .page .sidebar li.star span {
-	background: url(../img/icons.png) -0px 0px;
+    background: url(../img/icons.png) -0px 0px;
 }
 .page .sidebar li.admin span {
-	background: url(../img/icons.png) -30px 0px;
+    background: url(../img/icons.png) -30px 0px;
 }
 .page .sidebar li.paperclip span {
-	background: url(../img/icons.png) -45px 0px;
+    background: url(../img/icons.png) -45px 0px;
 }
 .page .sidebar a {
-	display: block;
-	padding: 2px 5px;
-	text-decoration: none;
-	color: #333;
-	margin-bottom: 5px;
+    display: block;
+    padding: 2px 5px;
+    text-decoration: none;
+    color: #333;
+    margin-bottom: 5px;
 }
 .page .sidebar .sel a {
-	font-weight: 700;
+    font-weight: 700;
 }
 .page .sidebar .sel li a {
-	font-weight: 500;
+    font-weight: 500;
 }
 .page .sidebar a:hover, .page .sidebar .sel li a:hover {
-	background: #eee;
-	color: #000;
+    background: #eee;
+    color: #000;
 }
 .page .sidebar li ul {
-	list-style: none;
-	margin: 0px 0px 0px 10px;
-	padding: 0px;
+    list-style: none;
+    margin: 0px 0px 0px 10px;
+    padding: 0px;
 }
 .page .sidebar li li {
 }
 .page .sidebar li li a {
-	padding-left: 14px;
+    padding-left: 14px;
 }
 .page .body {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	width: 550px;
+    display: inline-block;
+    *display:inline;zoom:1;
+    vertical-align: top;
+    width: 550px;
 }
 .page h2 {
 }
 .page .login, .page .newuser {
-	display: inline-block;
-	*display:inline;zoom:1;
-	vertical-align: top;
-	width: 300px;
-	text-align: center;
+    display: inline-block;
+    *display:inline;zoom:1;
+    vertical-align: top;
+    width: 300px;
+    text-align: center;
 }
 .dashboard {
-	width: 900px;
-	margin: 100px auto 0px;
-	background: #fff;
-	padding: 40px 0px;
-	border-radius: 15px;
-	box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+    width: 900px;
+    margin: 100px auto 0px;
+    background: #fff;
+    padding: 40px 0px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.3);
 }
 .dashboard h1 {
-	margin-top: 0px;
-	font-size: 36px;
-	text-align: center;	
+    margin-top: 0px;
+    font-size: 36px;
+    text-align: center;    
 }
 
 .comment {
-	border: 1px solid #bbb;
-	border-radius: 7px;
-	padding: 0px 12px;
-	margin: 12px 0px;
-	box-shadow: 2px 2px 2px rgba(0,0,0,.2);
+    border: 1px solid #bbb;
+    border-radius: 7px;
+    padding: 0px 12px;
+    margin: 12px 0px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,.2);
 }
 .comment h3 {
-	margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 .comment h4 {
-	margin: 0px;
-	font-size: 11px;
-	font-weight: 500;
+    margin: 0px;
+    font-size: 11px;
+    font-weight: 500;
 }
 .comment .text {
-	margin: 12px 0px;
+    margin: 12px 0px;
 }
 #comment_form h3 {
-	margin: 20px 0px 3px;
+    margin: 20px 0px 3px;
 }
 
 .popup {
-	display: none;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-	background: rgba(0,0,0,.3);
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.3);
 }
 .popup.active {
-	display: block;
+    display: block;
 }
 .popup .box {
-	background: #fff;
-	width: 400px;
-	margin-left: -200px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	text-align: center;
-	padding-bottom: 12px;
-	border-radius: 5px;
-	box-shadow: 1px 1px 5px rgba(0,0,0,.7);
+    background: #fff;
+    width: 400px;
+    margin-left: -200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    padding-bottom: 12px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,.7);
 }
 .popup .box h3 {
-	margin-top: 0px;
-	background: #eee;
-	padding: 5px;
-	font-size: 20px;
-	color: #333;
-	border-radius: 5px 5px 0px 0px;
+    margin-top: 0px;
+    background: #eee;
+    padding: 5px;
+    font-size: 20px;
+    color: #333;
+    border-radius: 5px 5px 0px 0px;
 }
 .popup .box .message {
-	padding: 0px 15px;
+    padding: 0px 15px;
 }
 .popup .options input {
-	margin: 12px;
+    margin: 12px;
 }
 .oversizePopup .popup {
-	position: absolute;
-	height: auto;
+    position: absolute;
+    height: auto;
 }
 .oversizePopup .popup .box {
-	position: relative;
-	margin: 0px auto;
-	top: auto;
-	left: auto;
+    position: relative;
+    margin: 0px auto;
+    top: auto;
+    left: auto;
 }
 .oversizePopup #body_wrapper {
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }

@@ -1,5 +1,5 @@
 <?php
 
 class Permissions {
-	const SUPER_ADMIN = 1;
+    const SUPER_ADMIN = 1;
 }

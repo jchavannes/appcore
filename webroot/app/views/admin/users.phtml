@@ -2,29 +2,29 @@
 <h3>Users</h3>
 
 <sheet>
-	<row class='title'>
-		<cell>ID</cell>
-		<cell>Username</cell>
-		<cell>Email</cell>
-		<cell>Date Created</cell>
-		<cell>Permissions</cell>
-	</row>
+    <row class='title'>
+        <cell>ID</cell>
+        <cell>Username</cell>
+        <cell>Email</cell>
+        <cell>Date Created</cell>
+        <cell>Permissions</cell>
+    </row>
 
-	<?php foreach($users as $user) { ?>
-	<row>
-		<cell><?php echo $user[UserTbl::ID]; ?></cell>
-		<cell><a href='user/view/<?php echo $user[UserTbl::USERNAME]; ?>'><?php echo $user[UserTbl::USERNAME]; ?></a></cell>
-		<cell><?php echo $user[UserTbl::EMAIL]; ?></cell>
-		<cell><?php echo date("[D] M j, Y - h:ia", $user[UserTbl::DATE_CREATED]); ?></cell>
-		<cell><?php
-			$permissions = Session::getPermissions($user[UserTbl::PERMISSIONS]);
-			$permissions = array_reverse($permissions);
-			$first = true;
-			foreach ($permissions as $key) {
-				echo ($first ? "" : ", ") . $key;
-				$first = false;
-			}
-		?></cell>
-	</row>
-	<?php } ?>	
+    <?php foreach($users as $user) { ?>
+    <row>
+        <cell><?php echo $user[UserTbl::ID]; ?></cell>
+        <cell><a href='user/view/<?php echo $user[UserTbl::USERNAME]; ?>'><?php echo $user[UserTbl::USERNAME]; ?></a></cell>
+        <cell><?php echo $user[UserTbl::EMAIL]; ?></cell>
+        <cell><?php echo date("[D] M j, Y - h:ia", $user[UserTbl::DATE_CREATED]); ?></cell>
+        <cell><?php
+            $permissions = Session::getPermissions($user[UserTbl::PERMISSIONS]);
+            $permissions = array_reverse($permissions);
+            $first = true;
+            foreach ($permissions as $key) {
+                echo ($first ? "" : ", ") . $key;
+                $first = false;
+            }
+        ?></cell>
+    </row>
+    <?php } ?>    
 </sheet>

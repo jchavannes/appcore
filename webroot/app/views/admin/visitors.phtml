@@ -2,23 +2,23 @@
 <h3>Visitors</h3>
 
 <sheet>
-	<row class='title'>
-		<cell>Username</cell>
-		<cell>IP Address</cell>
-		<cell>First Visit</cell>
-		<cell>Last Visit</cell>
-		<cell>Visits</cell>
-	</row>
+    <row class='title'>
+        <cell>Username</cell>
+        <cell>IP Address</cell>
+        <cell>First Visit</cell>
+        <cell>Last Visit</cell>
+        <cell>Visits</cell>
+    </row>
 
-	<?php foreach($visits as $visit) { ?>
-	<row>
-		<cell><?php echo $visit[UserTbl::USERNAME]; ?></cell>
-		<cell><?php echo $visit[SessionTbl::IP_ADDRESS]; ?></cell>
-		<cell><?php echo date("M j, Y, g:i a", $visit[SessionTbl::FIRST_VISIT]); ?></cell>
-		<cell><?php echo date("M j, Y, g:i a", $visit[SessionTbl::LAST_VISIT]); ?></cell>
-		<cell><?php echo $visit[SessionTbl::VISITS]; ?></cell>
-	</row>
-	<?php } ?>
+    <?php foreach($visits as $visit) { ?>
+    <row>
+        <cell><?php echo $visit[UserTbl::USERNAME]; ?></cell>
+        <cell><?php echo $visit[SessionTbl::IP_ADDRESS]; ?></cell>
+        <cell><?php echo date("M j, Y, g:i a", $visit[SessionTbl::FIRST_VISIT]); ?></cell>
+        <cell><?php echo date("M j, Y, g:i a", $visit[SessionTbl::LAST_VISIT]); ?></cell>
+        <cell><?php echo $visit[SessionTbl::VISITS]; ?></cell>
+    </row>
+    <?php } ?>
 
 </sheet>
 
