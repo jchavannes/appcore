@@ -45,13 +45,13 @@ class CommentTbl extends MysqlTbl {
         $query_opts[CommentTbl::MESSAGE] = strip_tags($query_opts[CommentTbl::MESSAGE], "<b><i>");
         $query_opts[CommentTbl::MESSAGE] = preg_replace('/\n|\r\n/', "<br/>", $query_opts[CommentTbl::MESSAGE]);
 
-        if(strlen($query_opts[CommentTbl::MESSAGE]) <= 0) {return false;}
+        if (strlen($query_opts[CommentTbl::MESSAGE]) <= 0) {return false;}
 
         foreach($query_opts as $opt) {
             $opts[] = $opt;
         }
 
-        if(count($opts) != 6) {return false;}
+        if (count($opts) != 6) {return false;}
 
         $query = 
             "INSERT INTO " . 
@@ -71,7 +71,7 @@ class CommentTbl extends MysqlTbl {
 
     public function deleteComment($id, $admin = false) {
 
-        if($admin === true) {
+        if ($admin === true) {
             $query =
                 "DELETE FROM " .
                     self::NAME . 
@@ -79,7 +79,7 @@ class CommentTbl extends MysqlTbl {
                     self::ID . " = ?";
             $opts = array($id);
 
-        } elseif(isset($_SESSION[Session::USER_ID])) {
+        } elseif (isset($_SESSION[Session::USER_ID])) {
             $query =
                 "DELETE FROM " .
                     self::NAME . 

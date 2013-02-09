@@ -1,4 +1,4 @@
-<?php if(count($comments['data']) <= 0) { ?>
+<?php if (count($comments['data']) <= 0) { ?>
 <div class='comment'>
     <h3>No comments</h3>
     <div class='text'></div>
@@ -14,7 +14,7 @@
     </h4>
     <div class='text'><?php echo $comment[CommentTbl::MESSAGE]; ?></div>
     <div class='manage'>
-        <?php if(Session::checkPermission(Permissions::SUPER_ADMIN) || (isset($_SESSION[Session::USER_ID]) && $_SESSION[Session::USER_ID] == $comment[CommentTbl::USER_ID])) { ?>
+        <?php if (Session::checkPermission(Permissions::SUPER_ADMIN) || (isset($_SESSION[Session::USER_ID]) && $_SESSION[Session::USER_ID] == $comment[CommentTbl::USER_ID])) { ?>
         <input type='button' class='action' value='Delete' onclick='Comments.deleteComment(<?php echo $comment[CommentTbl::ID]; ?>);' />
         <?php } ?>
     </div>

@@ -25,4 +25,4 @@ function __autoload($className) {
     }
 }
 
-Loader::load();
+Loader::getObject()->load();

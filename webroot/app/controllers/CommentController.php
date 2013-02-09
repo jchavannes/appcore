@@ -14,7 +14,7 @@ class CommentController extends ViewController {
 
     public function addAction() {
 
-        if(    !isset($_POST[self::COMMENT_ITEM])
+        if (    !isset($_POST[self::COMMENT_ITEM])
             || !isset($_POST[self::COMMENT_TITLE])
             || !isset($_POST[self::COMMENT_MESSAGE]) || empty($_POST[self::COMMENT_MESSAGE]))
         {
@@ -35,7 +35,7 @@ class CommentController extends ViewController {
         );
 
         $CommentTbl = new CommentTbl();
-        if($CommentTbl->addComment($query_opts)) {
+        if ($CommentTbl->addComment($query_opts)) {
             self::ajaxSuccess();
             return;
         }
@@ -44,15 +44,15 @@ class CommentController extends ViewController {
 
     public function deleteAction() {
 
-        if(isset($_POST['id']) && $deleteId = $_POST['id']) {
+        if (isset($_POST['id']) && $deleteId = $_POST['id']) {
             $CommentTbl = new CommentTbl();
-            if(Session::checkPermission(Permissions::SUPER_ADMIN)) {
-                if($CommentTbl->deleteComment($deleteId, true)) {
+            if (Session::checkPermission(Permissions::SUPER_ADMIN)) {
+                if ($CommentTbl->deleteComment($deleteId, true)) {
                     self::ajaxSuccess();
                     return;
                 }
             } else {
-                if($CommentTbl->deleteComment($deleteId)) {
+                if ($CommentTbl->deleteComment($deleteId)) {
                     self::ajaxSuccess();
                     return;
                 }

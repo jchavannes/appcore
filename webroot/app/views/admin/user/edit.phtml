@@ -4,7 +4,7 @@
 <form action='auth/edit' method='post' id='<?php echo UserController::FORM_ID; ?>'>
     <input type='hidden' name='<?php echo UserController::USER_ID; ?>' value='<?php echo $user_info[UserTbl::ID]; ?>' />
     <label>Username</label>
-    <input type='text' name='<?php echo UserController::USER_USERNAME; ?>' value='<?php echo $user_info[UserTbl::USERNAME]; ?>'<?php if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {echo " disabled='disabled'";} ?> />
+    <input type='text' name='<?php echo UserController::USER_USERNAME; ?>' value='<?php echo $user_info[UserTbl::USERNAME]; ?>'<?php if (!Session::checkPermission(Permissions::SUPER_ADMIN)) {echo " disabled='disabled'";} ?> />
     <br/>
     <label>Email</label>
     <input type='text' name='<?php echo UserController::USER_EMAIL; ?>' value='<?php echo strlen($user_info[UserTbl::EMAIL]) > 0 ? $user_info[UserTbl::EMAIL] : ""; ?>' />

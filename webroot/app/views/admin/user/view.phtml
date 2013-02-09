@@ -6,7 +6,7 @@
         <cell><b>Username</b></cell>
         <cell><?php echo $user_info[UserTbl::USERNAME]; ?></cell>
     </row>
-    <?php if(Session::checkPermission(Permissions::SUPER_ADMIN) || $user_info['me']) { ?>
+    <?php if (Session::checkPermission(Permissions::SUPER_ADMIN) || $user_info['me']) { ?>
     <row>
         <cell><b>Email</b></cell>
         <cell><?php echo strlen($user_info[UserTbl::EMAIL]) > 0 ? $user_info[UserTbl::EMAIL] : "<i>not provided</i>"; ?></cell>
@@ -22,6 +22,6 @@
     </row>
 </sheet>
 
-<?php if(Session::checkPermission(Permissions::SUPER_ADMIN) || $user_info['me']) { ?>
+<?php if (Session::checkPermission(Permissions::SUPER_ADMIN) || $user_info['me']) { ?>
     <p><a href='user/edit/<?php echo $user_info[UserTbl::USERNAME]; ?>'>Edit Profile</a></p>
 <?php } ?>

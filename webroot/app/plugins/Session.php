@@ -21,7 +21,7 @@ class Session {
         $time = time();
         $ip = $_SERVER['REMOTE_ADDR'];
 
-        if(    !empty($session[SessionTbl::ID])
+        if (    !empty($session[SessionTbl::ID])
             && $session[SessionTbl::IP_ADDRESS] == $ip
             && $session[SessionTbl::FIRST_VISIT] > $time - SESSION::MAX_SESSION_LENGTH)
         {
@@ -29,7 +29,7 @@ class Session {
                 SessionTbl::VISITS => $session[SessionTbl::VISITS] + 1,
                 SessionTbl::LAST_VISIT => $time
             );
-            if($session[SessionTbl::ID_RESET] < $time - 15) {
+            if ($session[SessionTbl::ID_RESET] < $time - 15) {
                 session_regenerate_id();
                 $updates[SessionTbl::PHPSESHID] = session_id();
                 $updates[SessionTbl::ID_RESET] = $time;
@@ -56,7 +56,7 @@ class Session {
     static public function login($fields) {
         $user = new UserTbl();
         $user_data = $user->login($fields);
-        if($user_data[UserTbl::ID]) {
+        if ($user_data[UserTbl::ID]) {
             Session::setUser($user_data);
             return true;
         }
@@ -82,7 +82,7 @@ class Session {
     }
 
     static public function username() {
-        if(isset($_SESSION[Session::USERNAME]) && !empty($_SESSION[Session::USERNAME])) {
+        if (isset($_SESSION[Session::USERNAME]) && !empty($_SESSION[Session::USERNAME])) {
             return $_SESSION[Session::USERNAME];
         } else {
             return false;
@@ -90,7 +90,7 @@ class Session {
     }
 
     static public function checkPermission($permission) {
-        if(!isset($_SESSION['permissions']) || $_SESSION['permissions'] <= 0 || !Session::isLoggedIn()) {
+        if (!isset($_SESSION['permissions']) || $_SESSION['permissions'] <= 0 || !Session::isLoggedIn()) {
             return false;
         }
 

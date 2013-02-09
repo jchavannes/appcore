@@ -33,7 +33,7 @@ class UserTbl extends MysqlTbl {
             $time
         );
 
-        if($this->query($query, $opts) && $this->insertId() !== false && $this->insertId() > 0) {
+        if ($this->query($query, $opts) && $this->insertId() !== false && $this->insertId() > 0) {
             $user_data = array(UserTbl::ID => $this->insertId(), UserTbl::USERNAME => $opts[0], UserTbl::PERMISSIONS => 0);
             return $user_data;
         } else {
@@ -44,7 +44,7 @@ class UserTbl extends MysqlTbl {
 
     public function editUser($data) {
 
-        if(!isset($data[UserTbl::ID])) {return false;}
+        if (!isset($data[UserTbl::ID])) {return false;}
 
         $fields = parent::filterFields($data, array(UserTbl::USERNAME, UserTbl::PASSWORD, UserTbl::EMAIL));
         $opts = array();
@@ -61,7 +61,7 @@ class UserTbl extends MysqlTbl {
         $query .= " WHERE " . UserTbl::ID . " = ?";
         array_push($opts, $data[UserTbl::ID]);
 
-        if(isset($fields[UserTbl::PASSWORD])) {
+        if (isset($fields[UserTbl::PASSWORD])) {
             $query .= " AND " . UserTbl::PASSWORD . " = md5(CONCAT(?, " . UserTbl::DATE_CREATED . "))";
             array_push($opts, md5($data[UserController::USER_OLDPASSWORD]));
         }
@@ -91,7 +91,7 @@ class UserTbl extends MysqlTbl {
             $first = false;
         }
         $query .= ")";
-        if(isset($data[UserTbl::ID])) {
+        if (isset($data[UserTbl::ID])) {
             $query .= " AND " . UserTbl::ID . " != ?";
             array_push($opts, $data[UserTbl::ID]);
         }
@@ -141,9 +141,9 @@ class UserTbl extends MysqlTbl {
     }
 
     public function getUserInfo($name = false) {
-        if($name === false && !isset($_SESSION[Session::USERNAME])) {
+        if ($name === false && !isset($_SESSION[Session::USERNAME])) {
             return false;
-        } elseif($name === false) {
+        } elseif ($name === false) {
             $name = $_SESSION[Session::USERNAME];
         }
         $query =
@@ -165,7 +165,7 @@ class UserTbl extends MysqlTbl {
 
         $opts = array($name);
         $results = $this->getResults($query, $opts);
-        if(isset($results[0]) && $results[0][UserTbl::ID] != "") {return $results[0];}
+        if (isset($results[0]) && $results[0][UserTbl::ID] != "") {return $results[0];}
         return false;
     }
 

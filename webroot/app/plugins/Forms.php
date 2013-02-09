@@ -5,7 +5,7 @@ class Forms {
     const FORM_CSRF_FIELD = 'csrf_token';
 
     public function __construct() {
-        if(!isset($_SESSION[Session::CSRF_TOKEN])) {
+        if (!isset($_SESSION[Session::CSRF_TOKEN])) {
             $_SESSION[Session::CSRF_TOKEN] = md5(session_id().time());
         }
     }

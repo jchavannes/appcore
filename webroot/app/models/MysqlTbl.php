@@ -7,6 +7,10 @@ class MysqlTbl {
 
     public function __construct() {
         $this->DB =  new mysqli(MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_DATABASE);
+        $this->DB->init();
+        if ($this->DB->connect_errno) {
+            Error::noDatabase();
+        }
     }
 
     public function getRow($query, $opts) {
@@ -14,7 +18,7 @@ class MysqlTbl {
         $stmt->execute();
         $stmt->store_result();
 
-        if($stmt->num_rows == 0) {return false;}
+        if ($stmt->num_rows == 0) {return false;}
 
         $metaResults = $stmt->result_metadata();
         $fields = $metaResults->fetch_fields();
@@ -94,7 +98,7 @@ class MysqlTbl {
     }
 
     public function insertId() {
-        if(!isset($this->insert_id)) {return false;}
+        if (!isset($this->insert_id)) {return false;}
         return $this->insert_id;
     }
 
@@ -103,7 +107,7 @@ class MysqlTbl {
         if (!is_object($stmt)) {
             throw new Exception("Error perparing query.");
         }
-        if($opts != false && isset($opts[0])) {
+        if ($opts != false && isset($opts[0])) {
             $types = "";
             $values = array();
             for($i = 0; isset($opts[$i]); $i++) {
@@ -118,13 +122,13 @@ class MysqlTbl {
     public function filterFields($data, $available_fields) {
         $fields = array();
         foreach($available_fields as $field) {
-            if(isset($data[$field])) {$fields[$field] = $data[$field];}
+            if (isset($data[$field])) {$fields[$field] = $data[$field];}
         }
         return $fields;
     }
 
     public function getAll($limit = false) {
-        if($limit <= 0) {$limit = 50;}
+        if ($limit <= 0) {$limit = 50;}
         $query = 
             "SELECT * FROM " . 
                 self::NAME . 

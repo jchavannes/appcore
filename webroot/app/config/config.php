@@ -8,7 +8,7 @@ $config = array(
 );
 
 $filename = CONFIG_DIR . "local.config.php";
-if(file_exists($filename)) {
+if (file_exists($filename)) {
     $default_config = $config;
     include($filename);
     $config = array_merge($default_config, $config);
@@ -23,24 +23,45 @@ class Config {
         $paths = array_merge($paths, array(
             "AdminViewController"       => CONTROLLER_DIR . "AdminViewController.php",
             "AdminController"           => CONTROLLER_DIR . "AdminController.php",
-            "AppController"             => CONTROLLER_DIR . "AppController.php",
             "AuthController"            => CONTROLLER_DIR . "AuthController.php",
             "CommentController"         => CONTROLLER_DIR . "CommentController.php",
             "HomeController"            => CONTROLLER_DIR . "HomeController.php",
+            "InstallController"            => CONTROLLER_DIR . "InstallController.php",
             "UserController"            => CONTROLLER_DIR . "UserController.php",
             "ViewController"            => CONTROLLER_DIR . "ViewController.php",
-            "Loader"                    => PLUGIN_DIR . "Loader.php",
-            "Session"                   => PLUGIN_DIR . "Session.php",
-            "Permissions"               => PLUGIN_DIR . "Permissions.php",
-            "Forms"                     => PLUGIN_DIR . "Forms.php",
+
             "Error"                     => PLUGIN_DIR . "Error.php",
+            "Forms"                     => PLUGIN_DIR . "Forms.php",
+            "Loader"                    => PLUGIN_DIR . "Loader.php",
+            "Permissions"               => PLUGIN_DIR . "Permissions.php",
+            "Request"                   => PLUGIN_DIR . "Request.php",
+            "Session"                   => PLUGIN_DIR . "Session.php",
+
+            "CommentTbl"                => MODEL_DIR . "CommentTbl.php",
+            "HttpRequestTbl"            => MODEL_DIR . "HttpRequestTbl.php",
             "MysqlTbl"                  => MODEL_DIR . "MysqlTbl.php",
             "SessionTbl"                => MODEL_DIR . "SessionTbl.php",
             "UserTbl"                   => MODEL_DIR . "UserTbl.php",
-            "CommentTbl"                => MODEL_DIR . "CommentTbl.php",
-            "HttpRequestTbl"            => MODEL_DIR . "HttpRequestTbl.php",
         ));
         return $paths;
+    }
+
+    /**
+     * Can be used to create shortened urls without requiring a controller. For
+     * instance, this would reroute '/test' to 'HomeController::testAction()'.
+     *
+     * return array(
+     *     "test" => array(
+     *         self::ROUTE_CONTROLLER => "HomeController",
+     *         self::ROUTE_ACTION => "testAction"
+     *     ),
+     *     ...
+     * );
+     *
+     * @return array
+     */
+    public function getRoutes($routes=array()) {
+        return $routes;
     }
 
     /**

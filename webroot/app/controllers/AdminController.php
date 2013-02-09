@@ -7,12 +7,12 @@ class AdminController extends AdminViewController {
     }
 
     public function signupAction() {
-        if(SESSION::isLoggedIn()) {parent::Redirect('admin/');}
+        if (SESSION::isLoggedIn()) {parent::Redirect('admin/');}
         $this->loadLayout("signup.phtml");
     }
 
     public function loginAction() {
-        if(SESSION::isLoggedIn()) {parent::Redirect('admin/');}
+        if (SESSION::isLoggedIn()) {parent::Redirect('admin/');}
         $this->loadLayout("login.phtml");
     }
 
@@ -27,7 +27,7 @@ class AdminController extends AdminViewController {
     
     function usersAction() {
 
-        if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
+        if (!Session::checkPermission(Permissions::SUPER_ADMIN)) {
             self::errorAction();
             return;
         }
@@ -40,7 +40,7 @@ class AdminController extends AdminViewController {
     
     function requestsAction() {
 
-        if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
+        if (!Session::checkPermission(Permissions::SUPER_ADMIN)) {
             self::errorAction();
             return;
         }
@@ -53,7 +53,7 @@ class AdminController extends AdminViewController {
     
     function visitorsAction() {
 
-        if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
+        if (!Session::checkPermission(Permissions::SUPER_ADMIN)) {
             self::errorAction();
             return;
         }
@@ -66,7 +66,7 @@ class AdminController extends AdminViewController {
     
     function commentsAction() {
 
-        if(!Session::checkPermission(Permissions::SUPER_ADMIN)) {
+        if (!Session::checkPermission(Permissions::SUPER_ADMIN)) {
             self::errorAction();
             return;
         }

@@ -13,20 +13,26 @@ class UserController extends AdminViewController {
     
     public function viewAction() {
 
-        $page = Loader::getPageArg();
+        $request = new Request();
+        $username = $request->getRequestPart(3);
 
         $UserTbl = new UserTbl();
 
-        if(isset($page[2]) && !empty($page[2])) {
-            // Someone else's profile
-            if($user_info = $UserTbl->getUserInfo($page[2])) {$user_info['me'] = false;}
-        } else {
-            // Your profile
-            if($user_info = $UserTbl->getUserInfo()) {$user_info['me'] = true;}
+        // Someone else's profile
+        if (!empty($username)) {
+            if ($user_info = $UserTbl->getUserInfo($username)) {
+                $user_info['me'] = false;
+            }
+        }
+        // Your profile
+        else {
+            if ($user_info = $UserTbl->getUserInfo()) {
+                $user_info['me'] = true;
+            }
         }
 
 
-        if($user_info === false) {
+        if ($user_info === false) {
             $this->loadLayout("user/notFound.phtml");
         } else {
             $this->view->userinfo = $user_info;
@@ -40,20 +46,21 @@ class UserController extends AdminViewController {
 
     public function editAction() {
 
-        $page = Loader::getPageArg();
+        $request = new Request();
+        $username = $request->getRequestPart(3);
 
         $UserTbl = new UserTbl();
         $user_info = false;
 
-        if(isset($page[2]) && !empty($page[2])) {
-            if(Session::checkPermission(Permissions::SUPER_ADMIN) || Loader::getPageArg(2) == $_SESSION[SESSION::USERNAME]) {
-                $user_info = $UserTbl->getUserInfo(Loader::getPageArg(2));
+        if (!empty($username)) {
+            if (Session::checkPermission(Permissions::SUPER_ADMIN) || $username == $_SESSION[SESSION::USERNAME]) {
+                $user_info = $UserTbl->getUserInfo($username);
             }
         } else {
             $user_info = $UserTbl->getUserInfo($_SESSION[SESSION::USERNAME]);
         }
 
-        if($user_info === false) {
+        if ($user_info === false) {
             $this->loadLayout("user/notFound.phtml");
         } else {
             $this->view->userinfo = $user_info;

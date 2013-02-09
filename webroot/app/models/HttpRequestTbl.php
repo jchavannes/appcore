@@ -33,11 +33,11 @@ class HttpRequestTbl extends MysqlTbl {
             $nolog = array(
                 "password",
                 "verify_password");
-            if(in_array($key, $nolog)) {
+            if (in_array($key, $nolog)) {
                 $value = "NOLOG";
             }
             $post .= ($post == "" ? "" : "&") . (string)$key . "=" . (string)$value;
-            if(strlen($post) > 255) {break;}
+            if (strlen($post) > 255) {break;}
         }
 
         $get = "/".(isset($_GET['q']) ? $_GET['q'] : "");
