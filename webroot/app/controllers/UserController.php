@@ -27,10 +27,10 @@ class UserController extends AdminViewController {
 
 
         if($user_info === false) {
-            $this->loadLayout("user" . DS . "notFound.phtml");
+            $this->loadLayout("user/notFound.phtml");
         } else {
             $this->view->userinfo = $user_info;
-            $this->loadLayout("user" . DS . "view.phtml");
+            $this->loadLayout("user/view.phtml");
         }
     }
 
@@ -54,10 +54,10 @@ class UserController extends AdminViewController {
         }
 
         if($user_info === false) {
-            $this->loadLayout("user" . DS . "notFound.phtml");
+            $this->loadLayout("user/notFound.phtml");
         } else {
             $this->view->userinfo = $user_info;
-            $this->loadLayout("user" . DS . "edit.phtml");
+            $this->loadLayout("user/edit.phtml");
         }
 
     }

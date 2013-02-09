@@ -68,7 +68,7 @@ class CommentController extends ViewController {
             'table' => new CommentTbl()
         );
         $comments['data'] = $comments['table']->getAllComments($id);
-        require(VIEW_DIR . "admin" . DS . "snippets" . DS . "comments.phtml");
+        require(VIEW_DIR . "admin/snippets/comments.phtml");
     }
 
 }

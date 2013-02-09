@@ -4,6 +4,8 @@ class Loader {
 
     static public function load() {
 
+        self::checkConfig();
+
         Session::load();
 
         // CSRF Check
@@ -93,6 +95,14 @@ class Loader {
     static public function getRequest() {
         $webpath = substr($_SERVER['SCRIPT_NAME'], 0, 0 - strlen("index.php"));
         return substr($_SERVER['REQUEST_URI'], strlen($webpath));
+    }
+
+    static private function checkConfig() {
+        $filename = CONFIG_DIR . "local.config.php";
+        if(!file_exists($filename)) {
+            InstallController::runInstall();
+            exit(0);
+        }
     }
 
 }
