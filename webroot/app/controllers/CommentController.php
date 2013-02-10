@@ -14,7 +14,7 @@ class CommentController extends ViewController {
 
     public function addAction() {
 
-        if (    !isset($_POST[self::COMMENT_ITEM])
+        if (!isset($_POST[self::COMMENT_ITEM])
             || !isset($_POST[self::COMMENT_TITLE])
             || !isset($_POST[self::COMMENT_MESSAGE]) || empty($_POST[self::COMMENT_MESSAGE]))
         {

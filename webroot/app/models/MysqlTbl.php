@@ -22,14 +22,11 @@ class MysqlTbl {
 
         $metaResults = $stmt->result_metadata();
         $fields = $metaResults->fetch_fields();
-        $first = true;
         $result = array();
-        $eval_code = '$stmt->bind_result(';
-        foreach($fields as $field) {
-            $eval_code .= ($first ? "" : ", ") . '$result[\''.$field->name.'\']'; $first = false;
+        foreach ($fields as $field) {
+            $result[$field->name] = null;
         }
-        $eval_code .= ');';
-        eval($eval_code);
+        call_user_func_array(array($stmt, 'bind_result'), &$result);
         $stmt->fetch();
         return $result;
     }
@@ -45,18 +42,14 @@ class MysqlTbl {
         $results = array();
 
         for($i = 0; $i < $stmt->num_rows; $i++) {
-            $first = true;
             $result = array();
-            $eval_code = '$stmt->bind_result(';
-            foreach($fields as $field) {
-                $eval_code .= ($first ? "" : ", ") . '$result[\''.$field->name.'\']'; $first = false;
+            foreach ($fields as $field) {
+                $result[$field->name] = null;
             }
-            $eval_code .= ');';
-            eval($eval_code);
+            call_user_func_array(array($stmt, 'bind_result'), &$result);
             $stmt->fetch();
             $results[$i] = $result;
         }
-
         return $results;
     }
 
@@ -102,6 +95,9 @@ class MysqlTbl {
         return $this->insert_id;
     }
 
+    /**
+     * @return mysqli_stmt
+     */
     protected function getQueryStatement($query, $opts = false) {
         $stmt = $this->DB->prepare($query);
         if (!is_object($stmt)) {
