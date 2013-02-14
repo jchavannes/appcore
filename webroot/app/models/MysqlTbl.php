@@ -6,11 +6,7 @@ class MysqlTbl {
     private $insert_id = false;
 
     public function __construct() {
-        $this->DB =  new mysqli(MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_DATABASE);
-        $this->DB->init();
-        if ($this->DB->connect_errno) {
-            Error::noDatabase();
-        }
+        $this->DB = DB::get();
     }
 
     public function getRow($query, $opts) {
@@ -143,4 +139,18 @@ class MysqlTbl {
         return $arr;
     }
 
+}
+
+class DB {
+    static private $db;
+    static public function get() {
+        if (!self::$db instanceof mysqli) {
+            self::$db =  new mysqli(MYSQL_HOST, MYSQL_USERNAME, MYSQL_PASSWORD, MYSQL_DATABASE);
+            self::$db->init();
+            if (self::$db->connect_errno) {
+                Error::noDatabase();
+            }
+        }
+        return self::$db;
+    }
 }
