@@ -30,7 +30,9 @@ class ViewController {
 
     public function errorAction() {
         header('HTTP/1.0 404 Not Found');
-        $this->loadLayout("404.phtml");
+        $this->loadFile("snippets/header.phtml");
+        $this->loadFile("404.phtml");
+        $this->loadFile("snippets/footer.phtml");
     }
 
     protected function redirect($url = "") {
@@ -85,5 +87,5 @@ class ViewController {
         $url = WEBROOT . IMG_DIR . $path;
         echo "<img".$attr_text." src='$url' />".LB;
     }
-    
+
 }

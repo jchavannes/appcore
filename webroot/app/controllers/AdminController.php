@@ -1,7 +1,7 @@
 <?php
 
 class AdminController extends AdminViewController {
-    
+
     function defaultAction() {
         $this->loadLayout("index.phtml");
     }
@@ -17,14 +17,14 @@ class AdminController extends AdminViewController {
     }
 
     public function logoutAction() {
-        Session::logout();
+        Session::reset();
         parent::Redirect('admin/');
     }
 
     public function aboutAction() {
         $this->loadLayout("about.phtml");
     }
-    
+
     function usersAction() {
 
         if (!Session::checkPermission(Permissions::SUPER_ADMIN)) {
@@ -37,7 +37,7 @@ class AdminController extends AdminViewController {
         $this->loadLayout("users.phtml");
 
     }
-    
+
     function requestsAction() {
 
         if (!Session::checkPermission(Permissions::SUPER_ADMIN)) {
@@ -50,7 +50,7 @@ class AdminController extends AdminViewController {
         $this->loadLayout("requests.phtml");
 
     }
-    
+
     function visitorsAction() {
 
         if (!Session::checkPermission(Permissions::SUPER_ADMIN)) {
@@ -63,7 +63,7 @@ class AdminController extends AdminViewController {
         $this->loadLayout("visitors.phtml");
 
     }
-    
+
     function commentsAction() {
 
         if (!Session::checkPermission(Permissions::SUPER_ADMIN)) {
@@ -76,7 +76,7 @@ class AdminController extends AdminViewController {
         $this->loadLayout("comments.phtml");
 
     }
-    
+
     function noAccessAction() {
         $this->loadLayout("noAccess.phtml");
     }

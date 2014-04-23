@@ -1,20 +1,30 @@
 <?php
 
-$config = array(
-    "MYSQL_HOST" => "localhost",
-    "MYSQL_USERNAME" => "root",
-    "MYSQL_PASSWORD" => "password",
-    "MYSQL_DATABASE" => "appcore"
-);
-
-$filename = CONFIG_DIR . "local.config.php";
+$filename = CONFIG_DIR . "config.local.php";
 if (file_exists($filename)) {
-    $default_config = $config;
     include($filename);
-    $config = array_merge($default_config, $config);
 }
 
-foreach($config as $k => $v) {define($k, $v);}
+if (!defined("FORCE_SSL_ONLY")) {
+    define("FORCE_SSL_ONLY", true);
+}
+
+if (!defined("DEVELOPMENT_MODE")) {
+    define("DEVELOPMENT_MODE", false);
+}
+
+if (!defined("MYSQL_HOST")) {
+    define("MYSQL_HOST", "localhost");
+}
+if (!defined("MYSQL_USERNAME")) {
+    define("MYSQL_USERNAME", "root");
+}
+if (!defined("MYSQL_PASSWORD")) {
+    define("MYSQL_PASSWORD", "password");
+}
+if (!defined("MYSQL_DATABASE")) {
+    define("MYSQL_DATABASE", "appcore");
+}
 
 
 class Config {

@@ -7,70 +7,71 @@ class HttpRequestTbl extends MysqlTbl {
     const GET = 'get';
     const POST = 'post';
     const SESSION_ID = 'session_id';
-    const date = 'date';
+    const DATE = 'date';
 
-    public function logHttpRequest() {
+    static public function logHttpRequest() {
 
-        $query = 
-            "INSERT INTO " . 
-                HttpRequestTbl::NAME .
+        $query =
+            "INSERT INTO " . HttpRequestTbl::NAME .
             " (" .
                 HttpRequestTbl::GET . ", " .
                 HttpRequestTbl::POST . ", " .
                 HttpRequestTbl::SESSION_ID . ", " .
-                HttpRequestTbl::date . ") " .
-            " VALUES (?, ?, (" .
-                "SELECT " .
-                    SessionTbl::ID . 
-                " FROM " . 
-                    SessionTbl::NAME .
-                " WHERE " .
-                    SessionTbl::PHPSESHID . " = ?" .
-            "), ?)";
+                HttpRequestTbl::DATE .
+            ") " .
+            " VALUES (?, ?, ?, ?)";
 
         $post = "";
         foreach($_POST as $key => $value) {
             $nolog = array(
                 "password",
-                "verify_password");
-            if (in_array($key, $nolog)) {
+                "verify_password",
+                "creditcard_type",
+                "creditcard_number",
+                "creditcard_expire_month",
+                "creditcard_expire_year",
+                "creditcard_security_code"
+            );
+            if(in_array($key, $nolog)) {
                 $value = "NOLOG";
             }
             $post .= ($post == "" ? "" : "&") . (string)$key . "=" . (string)$value;
-            if (strlen($post) > 255) {break;}
         }
 
-        $get = "/".(isset($_GET['q']) ? $_GET['q'] : "");
-        $post = substr($post, 0, 255);
+        $get = Loader::getRequest();;
 
         $opts = array(
             $get,
             $post,
-            session_id(),
+            $_SESSION[Session::DATABASE_ID],
             time()
         );
 
         $http_request = new HttpRequestTbl();
-        $stmt = $http_request->query($query, $opts);
-        //printf("Errormessage: %s\n", $stmt->error);
+        $http_request->query($query, $opts);
 
     }
 
     public function getPageCounts() {
 
-        $query = 
+        $query =
             "SELECT " .
                 "DISTINCT(" . HttpRequestTbl::GET . ") as " . HttpRequestTbl::GET . ", " .
                 "COUNT(" . HttpRequestTbl::GET . ") as count, " .
                 "COUNT(CASE WHEN LENGTH(" . HttpRequestTbl::POST . ") > 0 THEN 1 END) as posts, " .
                 "COUNT(DISTINCT " . HttpRequestTbl::SESSION_ID . ") as sessions" .
-            " FROM " .
-                HttpRequestTbl::NAME . 
-            " GROUP BY " .
-                HttpRequestTbl::GET .
+            " FROM " . HttpRequestTbl::NAME .
+            " GROUP BY " . HttpRequestTbl::GET .
             " ORDER BY count DESC";
 
         return $this->getResults($query);
+    }
+
+    public function getAllRequests($id) {
+        $query =
+            "SELECT * FROM " . self::NAME .
+            " WHERE " . self::SESSION_ID . " = ?";
+        return $this->getResults($query, array($id));
     }
 
 }

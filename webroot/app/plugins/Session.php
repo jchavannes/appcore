@@ -3,40 +3,47 @@
 class Session {
 
     const MAX_SESSION_LENGTH = 604800;  // One week
+    const COOKIE_ID_LENGTH = 604800; // Used to be 15 sec, but don't really see the point anymore
 
+    const DATABASE_ID = "database_id";
     const LOGGED_IN = 'logged_in';
     const USER_ID = 'user_id';
     const EMAIL = 'email';
     const USERNAME = 'username';
     const PERMISSIONS = 'permissions';
-    const FORM_VERIFIERS = 'form_verifiers';
-
     const CSRF_TOKEN = 'csrf_token';
 
     static public function load() {
 
+        ini_set("session.cookie_httponly", 1);
+        if (FORCE_SSL_ONLY) {
+            ini_set("session.cookie_secure", 1);
+        }
         session_start();
+
         $SessionTbl = new SessionTbl();
         $session = $SessionTbl->getSession(session_id());
         $time = time();
-        $ip = $_SERVER['REMOTE_ADDR'];
+        $ip = Session::getRemoteAddr();
 
-        if (    !empty($session[SessionTbl::ID])
+        if (!empty($session[SessionTbl::ID])
             && $session[SessionTbl::IP_ADDRESS] == $ip
-            && $session[SessionTbl::FIRST_VISIT] > $time - SESSION::MAX_SESSION_LENGTH)
-        {
+            && $session[SessionTbl::FIRST_VISIT] > $time - SESSION::MAX_SESSION_LENGTH
+            && isset($_SESSION[self::DATABASE_ID])) {
+
             $updates = array(
                 SessionTbl::VISITS => $session[SessionTbl::VISITS] + 1,
                 SessionTbl::LAST_VISIT => $time
             );
-            if ($session[SessionTbl::ID_RESET] < $time - 15) {
+            if ($session[SessionTbl::ID_RESET] < $time - self::COOKIE_ID_LENGTH) {
                 session_regenerate_id();
                 $updates[SessionTbl::PHPSESHID] = session_id();
                 $updates[SessionTbl::ID_RESET] = $time;
             }
             $SessionTbl->updateSession($updates, $session[SessionTbl::ID]);
 
-        } else {
+        }
+        else {
 
             $_SESSION[Session::LOGGED_IN] = false;
             $fields = array(
@@ -47,10 +54,11 @@ class Session {
                 SessionTbl::ID_RESET => $time,
                 SessionTbl::VISITS => 1
             );
-            $SessionTbl->createSession($ip, $time);
+            $stmt = $SessionTbl->createSession($fields);
+            $_SESSION[self::DATABASE_ID] = $stmt->insert_id;
 
         }
-        HttpRequestTbl::logHttpRequest();
+
     }
 
     static public function login($fields) {
@@ -63,6 +71,10 @@ class Session {
         return false;
     }
 
+    static public function getRemoteAddr() {
+        return !empty($_SERVER["HTTP_CF_CONNECTING_IP"]) ? $_SERVER["HTTP_CF_CONNECTING_IP"] : $_SERVER["REMOTE_ADDR"];
+    }
+
     static public function setUser($user_data) {
         $SessionTbl = new SessionTbl();
         $SessionTbl->setUser($user_data[UserTbl::ID]);
@@ -72,9 +84,9 @@ class Session {
         $_SESSION[Session::PERMISSIONS] = $user_data[UserTbl::PERMISSIONS];
     }
 
-    static public function logout() {
+    static public function reset() {
         session_unset();
-        session_regenerate_id();        
+        session_regenerate_id();
     }
 
     static public function isLoggedIn() {

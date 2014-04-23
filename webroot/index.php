@@ -1,5 +1,7 @@
 <?php
 
+define("PROTOCOL", isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? "https:" : "http:");
+
 define('WEBROOT', (dirname($_SERVER["SCRIPT_NAME"]) != "/") ? "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER["SCRIPT_NAME"])."/" : "http://".$_SERVER['HTTP_HOST']."/");
 define('ROOT_DIR', dirname(__FILE__) . '/');
 define('LB', PHP_EOL);
@@ -25,4 +27,4 @@ function __autoload($className) {
     }
 }
 
-Loader::getObject()->load();
+Loader::load();
